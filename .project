@@ -1,12 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-  <name>maf-defaultplugins-extension</name>
-  <buildSpec>
-    <buildCommand>
-      <name>org.eclipse.jdt.core.javabuilder</name>
-    </buildCommand>
-  </buildSpec>
-  <natures>
-    <nature>org.eclipse.jdt.core.javanature</nature>
-  </natures>
-  <linkedResources> </linkedResources>
+	<name>maf-defaultplugins-extension</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+	</buildSpec>
+	<natures>
+	</natures>
 </projectDescription>
