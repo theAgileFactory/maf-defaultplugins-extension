@@ -1,0 +1,25 @@
+@(
+    id: Long,
+    color: String,
+    linkgen: framework.services.ext.api.ILinkGenerator,
+    tab: String,
+    subordinatesTable: framework.utils.Table[utils.table.ActorListView],
+    subordinatesPagination: framework.utils.Pagination[models.pmo.Actor],
+    orgUnitsTable: framework.utils.Table[utils.table.OrgUnitListView],
+    orgUnitsPagination: framework.utils.Pagination[models.pmo.OrgUnit]
+)
+
+@import commons._
+@import framework_views.parts
+
+@containerId=@{
+    "my-staff-widget-" + id
+}
+
+@views.html.framework_views.dashboard.widget(id, parts.Msg.asString("plugin.widget_kit.my_staff.title"), color){
+
+    <div id="@containerId">
+        @my_staff_fragment_widget(id, linkgen, tab, subordinatesTable, subordinatesPagination, orgUnitsTable, orgUnitsPagination)
+    </div>
+
+}

@@ -1,0 +1,19 @@
+@(
+    id: Long, 
+    color: String, 
+    linkgen: framework.services.ext.api.ILinkGenerator, 
+    portfolioEntries: List[models.pmo.PortfolioEntry]
+)
+
+@import commons._
+@import framework_views.parts
+
+@views.html.framework_views.dashboard.widget(id, parts.Msg.asString("plugin.widget_kit.last_initiatives.title"), color){
+    @if(portfolioEntries != null && portfolioEntries.size > 0) {
+        @for(portfolioEntry <- portfolioEntries) {
+            <a class="list-group-item" href="@controllers.core.routes.PortfolioEntryController.overview(portfolioEntry.id).url">@portfolioEntry.name</a>
+        }
+    } else {
+        <a class="list-group-item" href="@controllers.core.routes.PortfolioEntryController.create().url">@parts.Msg("plugin.widget_kit.last_initiatives.create")</a>
+    }
+}

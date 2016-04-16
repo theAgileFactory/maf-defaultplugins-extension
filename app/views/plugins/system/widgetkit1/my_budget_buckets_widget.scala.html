@@ -1,0 +1,25 @@
+@(
+    id: Long,
+    color: String,
+    linkgen: framework.services.ext.api.ILinkGenerator,
+    tab: String,
+    asOwnerTable: framework.utils.Table[utils.table.BudgetBucketListView],
+    asOwnerPagination: framework.utils.Pagination[models.finance.BudgetBucket],
+    asResponsibleTable: framework.utils.Table[utils.table.BudgetBucketListView],
+    asResponsiblePagination: framework.utils.Pagination[models.finance.BudgetBucket]
+)
+
+@import commons._
+@import framework_views.parts
+
+@containerId=@{
+    "my-budget-buckets-widget-" + id
+}
+
+@views.html.framework_views.dashboard.widget(id, parts.Msg.asString("plugin.widget_kit.my_budget_buckets.title"), color){
+
+    <div id="@containerId">
+        @my_budget_buckets_fragment_widget(id, linkgen, tab, asOwnerTable, asOwnerPagination, asResponsibleTable, asResponsiblePagination)
+    </div>
+
+}

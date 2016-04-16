@@ -1,0 +1,21 @@
+@(
+    id: Long, 
+    color: String, 
+    linkgen: framework.services.ext.api.ILinkGenerator
+)
+
+@import commons._
+@import framework_views.parts
+
+@views.html.framework_views.dashboard.widget(id, parts.Msg.asString("plugin.widget_kit.help.title"), color){
+
+    <div class="list-group">
+        <a class="list-group-item" target="_blank" href="https://help.bizdock.io/doku.php?id=resources:what-is-bizdock"><span class="fa fa-eye"></span> @parts.Msg("plugin.widget_kit.help.bizdock")</a>
+        <a class="list-group-item" target="_blank" href="https://help.bizdock.io/doku.php?id=user-guide:initiative:create-initiative"><span class="fa fa-gift"></span> @parts.Msg("plugin.widget_kit.help.create")</a>
+        <a class="list-group-item" target="_blank" href="https://help.bizdock.io/doku.php?id=user-guide:roadmap"><span class="fa fa-road"></span> @parts.Msg("plugin.widget_kit.help.roadmap")</a>
+        <a class="list-group-item" target="_blank" href="https://help.bizdock.io/doku.php?id=user-guide:tools:reporting"><span class="fa fa-pie-chart"></span> @parts.Msg("plugin.widget_kit.help.reporting")</a>
+        <a class="list-group-item" target="_blank" href="https://help.bizdock.io/doku.php?id=user-guide:my-account"><span class="fa fa-street-view"></span> @parts.Msg("plugin.widget_kit.help.profile")</a>
+    </div>
+
+
+}

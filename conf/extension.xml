@@ -1,0 +1,1144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension-descriptor>
+	<name>Default plugins for BizDock</name>
+	<controller>extension.controllers.StandardPluginsAboutExtensionController</controller>
+	<plugin>
+		<identifier>jira1</identifier>
+		<name>plugin.jira.descriptor.name</name>
+		<description>plugin.jira.descriptor.description</description>
+		<clazz>services.plugins.atlassian.jira.jira1.JiraPluginRunner</clazz>
+		<version>1.0</version>
+		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:jira-plugin</vendor-url>
+		<multi-instance>true</multi-instance>
+		<event-interface in="false" out="true"/>
+		<configuration-block identifier="config" type="PROPERTIES">
+			<name>plugin.jira.config.main.name</name>
+			<description>plugin.jira.config.main.description</description>
+			<version>3</version>
+			<default>
+host.url=
+authentication.key=
+api.version=1.0
+pe.load.start_time=03h00
+pe.load.frequency=1440
+			</default>
+		</configuration-block>
+		<configuration-block identifier="requirement_status_mapping" type="PROPERTIES">
+			<name>plugin.jira.config.status_mapping.name</name>
+			<description>plugin.jira.config.status_mapping.description</description>
+			<version>1</version>
+			<default>
+#format: {jira_status_id}={bizdock_requirement_status_id}, example:
+#OPEN=4
+#IN_PROGRESS=1
+			</default>
+		</configuration-block>
+		<configuration-block identifier="requirement_priority_mapping" type="PROPERTIES">
+			<name>plugin.jira.config.priority_mapping.name</name>
+			<description>plugin.jira.config.priority_mapping.description</description>
+			<version>1</version>
+			<default>
+#format: {jira_priority_id}={bizdock_requirement_priority_id}, example:
+#BLOCKER=4
+#CRITICAL=1
+			</default>
+		</configuration-block>
+		<configuration-block identifier="requirement_severity_mapping" type="PROPERTIES">
+			<name>plugin.jira.config.severity_mapping.name</name>
+			<description>plugin.jira.config.severity_mapping.description</description>
+			<version>1</version>
+			<default>
+#format: {jira_severity_id}={bizdock_requirement_severity_id}, example:
+#SHOWSTOPPER=4
+#NICE_TO_HAVE=1
+			</default>
+		</configuration-block>
+		<supported-data-type>PortfolioEntry</supported-data-type>
+		<supported-data-type>Requirement</supported-data-type>
+		<registration-configurator data-type="PortfolioEntry">services.plugins.atlassian.jira.jira1.PortfolioEntryRegistrationController</registration-configurator>
+	</plugin>
+	<plugin>
+		<identifier>jenk1</identifier>
+		<name>Jenkins (by DevDock)</name>
+		<description>Jenkins is a leading open source continuous integration software</description>
+		<clazz>services.plugins.jenkins.jenk1.JenkinsPluginRunner</clazz>
+		<version>1.0</version>
+		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:jenkins-plugin-integrated</vendor-url>
+		<multi-instance>false</multi-instance>
+		<event-interface in="false" out="false"/>
+		<configuration-block identifier="config" type="PROPERTIES">
+			<name>Configuration properties</name>
+			<description>Configuration properties for the plugin</description>
+			<version>1</version>
+			<default>
+jenkins.gui.url=/jenkins
+			</default>
+		</configuration-block>
+	</plugin>
+	<plugin>
+		<identifier>nex1</identifier>
+		<name>Nexus (by DevDock)</name>
+		<description>Nexus is a software asset repository management software</description>
+		<clazz>services.plugins.nexus.nex1.NexusPluginRunner</clazz>
+		<version>1.0</version>
+		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:nexus-plugin-integrated</vendor-url>
+		<multi-instance>false</multi-instance>
+		<event-interface in="false" out="false"/>
+		<configuration-block identifier="config" type="PROPERTIES">
+			<name>Configuration properties</name>
+			<description>Configuration properties for the plugin</description>
+			<version>1</version>
+			<default>
+nexus.gui.url=/nexus
+			</default>
+		</configuration-block>
+	</plugin>
+	<plugin>
+		<identifier>redm1</identifier>
+		<name>Redmine (by DevDock)</name>
+		<description>The DevDock Redmine plugin deal with the synchronization of DevDock Redmine with BizDock.</description>
+		<clazz>services.plugins.redmine.redm1.RedminePluginRunner</clazz>
+		<version>1.0</version>
+		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:redmine-plugin-integrated</vendor-url>
+		<multi-instance>false</multi-instance>
+		<event-interface in="false" out="true"/>
+		<configuration-block identifier="config" type="PROPERTIES">
+			<name>Global properties</name>
+			<description>Global properties for the plugin</description>
+			<version>10</version>
+			<default>
+#initial configuration
+redmine.host.url=
+redmine.api.key=
+is_scoped.custom_field.id=
+story_points.custom_field.id=
+remaining_effort.custom_field.id=
+pe.iterations.filter=
+pe.needs.filter=
+pe.needs.trackers=2;4
+pe.defects.filter=
+pe.defects.trackers=1
+pe.load.start.time=03h00
+pe.load.frequency=1440
+			</default>
+		</configuration-block>
+		<configuration-block identifier="requirement_status_mapping" type="PROPERTIES">
+			<name>Requirement status mapping</name>
+			<description>The configuration of the mapping between the Redmine status and the BizDock requirement status.</description>
+			<version>1</version>
+			<default>
+#format: {redmine_status_id}={bizdock_requirement_status_id}, example:
+#1=4
+#2=1
+			</default>
+		</configuration-block>
+		<configuration-block identifier="requirement_priority_mapping" type="PROPERTIES">
+			<name>Requirement priority mapping</name>
+			<description>The configuration of the mapping between the Redmine priorities and the BizDock requirement priorities.</description>
+			<version>1</version>
+			<default>
+#format: {redmine_priority_id}={bizdock_requirement_priority_id}, example:
+#1=4
+#2=1
+			</default>
+		</configuration-block>
+		<configuration-block identifier="requirement_severity_mapping" type="PROPERTIES">
+			<name>Requirement severity mapping</name>
+			<description>The configuration of the mapping between the Redmine priorities and the BizDock requirement severities.</description>
+			<version>1</version>
+			<default>
+#format: {redmine_priority_id}={bizdock_requirement_severity_id}, example:
+#1=4
+#2=1
+			</default>
+		</configuration-block>
+		<supported-data-type>User</supported-data-type>
+	    <supported-data-type>PortfolioEntry</supported-data-type>
+		<supported-data-type>Requirement</supported-data-type>
+		<registration-configurator data-type="PortfolioEntry">services.plugins.redmine.PortfolioEntryRegistrationController</registration-configurator>
+	</plugin>
+	<plugin>
+		<identifier>redm2</identifier>
+		<name>Redmine</name>
+		<description>The Redmine plugin deal with the synchronization of Redmine with BizDock.</description>
+		<clazz>services.plugins.redmine.redm2.RedminePluginRunner</clazz>
+		<version>1.0</version>
+		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:redmine-plugin</vendor-url>
+		<multi-instance>true</multi-instance>
+		<event-interface in="false" out="true"/>
+		<configuration-block identifier="config" type="PROPERTIES">
+			<name>Global properties</name>
+			<description>Global properties for the plugin</description>
+			<version>3</version>
+			<default>
+#initial configuration
+redmine.host.url=
+redmine.api.key=
+is_scoped.custom_field.id=
+story_points.custom_field.id=
+remaining_effort.custom_field.id=
+pe.iterations.filter=
+pe.needs.filter=
+pe.needs.trackers=2;4
+pe.defects.filter=
+pe.defects.trackers=1
+pe.load.start.time=03h00
+pe.load.frequency=1440
+			</default>
+		</configuration-block>
+		<configuration-block identifier="requirement_status_mapping" type="PROPERTIES">
+			<name>Requirement status mapping</name>
+			<description>The configuration of the mapping between the Redmine status and the BizDock requirement status.</description>
+			<version>1</version>
+			<default>
+#format: {redmine_status_id}={bizdock_requirement_status_id}, example:
+#1=4
+#2=1
+			</default>
+		</configuration-block>
+		<configuration-block identifier="requirement_priority_mapping" type="PROPERTIES">
+			<name>Requirement priority mapping</name>
+			<description>The configuration of the mapping between the Redmine priorities and the BizDock requirement priorities.</description>
+			<version>1</version>
+			<default>
+#format: {redmine_priority_id}={bizdock_requirement_priority_id}, example:
+#1=4
+#2=1
+			</default>
+		</configuration-block>
+		<configuration-block identifier="requirement_severity_mapping" type="PROPERTIES">
+			<name>Requirement severity mapping</name>
+			<description>The configuration of the mapping between the Redmine priorities and the BizDock requirement severities.</description>
+			<version>1</version>
+			<default>
+#format: {redmine_priority_id}={bizdock_requirement_severity_id}, example:
+#1=4
+#2=1
+			</default>
+		</configuration-block>
+		<supported-data-type>PortfolioEntry</supported-data-type>
+		<supported-data-type>Requirement</supported-data-type>
+		<registration-configurator data-type="PortfolioEntry">services.plugins.redmine.PortfolioEntryRegistrationController</registration-configurator>
+	</plugin>
+	<plugin>
+		<identifier>subv1</identifier>
+		<name>SVN (by DevDock)</name>
+		<description>Subversion is a source code and configuration management software</description>
+		<clazz>services.plugins.subversion.subv1.SubversionPluginRunner</clazz>
+		<version>1.0</version>
+		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:svn-plugin-integrated</vendor-url>
+		<multi-instance>false</multi-instance>
+		<event-interface in="false" out="true"/>
+		<configuration-block identifier="config" type="PROPERTIES">
+			<name>Configuration</name>
+			<description>Please specify the configuration options for the plugin.</description>
+			<version>0</version>
+			<default>
+#Sample configuration (please update it with appropriate values)
+subversion.gui.url=/svn
+#WARNING : please remember to escape the "," in the LDAP URL if any is present
+ldap.url=ldap://localhost
+ldap.user=cn=Directory Manager
+ldap.password=
+subversion.developer.ldap.group=developer
+subversion.delivery.manager.ldap.group=dm
+			</default>
+		</configuration-block>
+		<supported-data-type>User</supported-data-type>
+		<supported-data-type>SystemLevelRoleType</supported-data-type>
+	</plugin>
+	<plugin>
+		<identifier>actorsload1</identifier>
+		<name>BizDock Employee loader</name>
+		<description>This plugin provides the ability to load BizDock employees from a CSV file with various options</description>
+		<clazz>services.plugins.system.actorsload1.ActorLoaderPluginRunner</clazz>
+		<version>2.0</version>
+		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins:employee-loader-plugin</vendor-url>
+		<multi-instance>true</multi-instance>
+		<event-interface in="false" out="true"/>
+		<configuration-block identifier="main" type="PROPERTIES">
+			<name>Parameters</name>
+			<description>Various configuration options for the plugin</description>
+			<version>2</version>
+			<default>
+#Default configuration (WARNING: debug mode is activated by default)
+test.mode=true
+csv.format=EXCEL
+input.file.charset=ISO8859-1
+input.file.path=/inputs/input-actor.csv
+automatic.load.by.scheduler=false
+load.start.time=00h00
+load.frequency.in.minutes=1440
+ignore.invalid.rows=false
+unactivate.not.found=false
+unactivate.selection.clause=
+report.mail=
+report.file.path=/outputs/report-actor.log
+			</default>
+		</configuration-block>
+		<configuration-block identifier="csv_mapping" type="JAVASCRIPT">
+			<name>CSV file mapping</name>
+			<description>The configuration of the mapping between the CSV file columns and the Object attributes.
+			This configuration is implemented as JavaScript.</description>
+			<version>0</version>
+			<default>
+/*
+Please change the mapping so that it reflects the structure of your CSV file.
+*/
+target.setRefId(csv.get("ref_id"));
+target.setErpRefId(csv.get("erp_ref_id"));
+target.setFirstName(csv.get("first_name"));
+target.setLastName(csv.get("last_name"));
+target.setTitle(csv.get("title"));
+target.setMail(csv.get("mail"));
+target.setMobilePhone(csv.get("mobile_phone"));
+target.setFixPhone(csv.get("fix_phone"));
+target.setEmployeId(csv.get("employee_id"));
+target.setLogin(csv.get("login"));
+target.setActorTypeRefId(csv.get("actor_type_ref_id"));
+target.setOrgUnitRefId(csv.get("org_unit_ref_id"));
+target.setActive(csv.get("is_active"));
+target.setManagerRefId(csv.get("manager_ref_id"));
+//If you set ignoreRecord to "true", the record is not saved into the database
+ignoreRecord=false;
+			</default>
+		</configuration-block>
+		<supported-data-type>Actor</supported-data-type>
+	</plugin>
+    <plugin>
+		<identifier>timesheet1</identifier>
+		<name>BizDock Timesheet loader</name>
+		<description>This plugin provides the ability to load timesheets from an external system</description>
+		<clazz>services.plugins.system.timesheet1.TimesheetLoaderPluginRunner</clazz>
+		<version>1.0</version>
+		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins:timesheet-loader-plugin</vendor-url>
+		<multi-instance>true</multi-instance>
+		<event-interface in="false" out="true"/>
+		<configuration-block identifier="main" type="PROPERTIES">
+			<name>Parameters</name>
+			<description>Various configuration options for the plugin</description>
+			<version>1</version>
+			<default>
+#Default configuration (WARNING: debug mode is activated by default)
+test.mode=true
+csv.format=EXCEL
+input.file.charset=ISO8859-1
+input.file.path=/inputs/timesheet_import.csv
+automatic.load.by.scheduler=false
+load.start.time=00h00
+load.frequency.in.minutes=1440
+ignore.invalid.rows=false
+report.mail=
+report.file.path=/outputs/report-timesheet.log
+			</default>
+		</configuration-block>
+		<configuration-block identifier="csv_mapping" type="JAVASCRIPT">
+			<name>CSV file mapping</name>
+			<description>The configuration of the mapping between the CSV file columns and the Object attributes.
+			This configuration is implemented as JavaScript.</description>
+			<version>1</version>
+			<default>
+/*
+Please change the mapping so that it reflects the structure of your CSV file.
+*/
+target.setGovernanceId(csv.get("governanceId"));
+target.setEmployeeRefId(csv.get("employeeRefId"));
+target.setLogDate(csv.get("logDate"));
+target.setHours(csv.get("hours"));
+target.setPackageRefId(csv.get("packageRefId"));
+//If you set ignoreRecord to "true", the record is not saved into the database
+ignoreRecord=false;
+			</default>
+		</configuration-block>
+	</plugin>
+	<plugin>
+		<identifier>orgunitsload1</identifier>
+		<name>BizDock Org Unit loader</name>
+		<description>This plugin provides the ability to load BizDock org units from a CSV file with various options</description>
+		<clazz>services.plugins.system.orgunitsload1.OrgUnitLoaderPluginRunner</clazz>
+		<version>1.0</version>
+		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins:org-unit-loader-plugin</vendor-url>
+		<multi-instance>true</multi-instance>
+		<event-interface in="false" out="true"/>
+		<configuration-block identifier="main" type="PROPERTIES">
+			<name>Parameters</name>
+			<description>Various configuration options for the plugin</description>
+			<version>2</version>
+			<default>
+#Default configuration (WARNING: debug mode is activated by default)
+test.mode=true
+csv.format=EXCEL
+input.file.charset=ISO8859-1
+input.file.path=/inputs/input-org-unit.csv
+automatic.load.by.scheduler=false
+load.start.time=00h00
+load.frequency.in.minutes=1440
+ignore.invalid.rows=false
+unactivate.not.found=false
+unactivate.selection.clause=
+report.mail=
+report.file.path=/outputs/report-org-unit.log
+			</default>
+		</configuration-block>
+		<configuration-block identifier="csv_mapping" type="JAVASCRIPT">
+			<name>CSV file mapping</name>
+			<description>The configuration of the mapping between the CSV file columns and the Object attributes.
+			This configuration is implemented as JavaScript.</description>
+			<version>0</version>
+			<default>
+ /*
+ Please change the mapping so that it reflects the structure of your CSV file
+ */
+target.setRefId(csv.get("ref_id"));
+target.setIsActive(csv.get("is_active"));
+target.setName(csv.get("name"));
+target.setManagerRefId(csv.get("manager_ref_id"));
+target.setParentRefId(csv.get("parent_ref_id"));
+target.setTypeRefId(csv.get("type_ref_id"));
+//If you set ignoreRecord to "true", the record is not saved into the database
+ignoreRecord=false;
+			</default>
+		</configuration-block>
+		<supported-data-type>OrgUnit</supported-data-type>
+	</plugin>
+	<plugin>
+		<identifier>finance1</identifier>
+		<name>BizDock Financial integration</name>
+		<description>Integrate you financial ERP solution with BizDock (load POs and budgets).</description>
+		<clazz>services.plugins.system.finance1.FinanceErpIntegrationPluginRunner</clazz>
+		<version>1.0</version>
+		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins:financial-integration-plugin</vendor-url>
+		<multi-instance>true</multi-instance>
+		<event-interface in="false" out="true"/>
+		<configuration-block identifier="main" type="PROPERTIES">
+			<name>Parameters</name>
+			<description>Various configuration options for the plugin</description>
+			<version>2</version>
+			<default>
+#Default configuration (WARNING: debug mode is activated by default)
+test.mode=true
+csv.format=EXCEL
+input.file.charset=ISO8859-1
+input.file.path=/inputs/input-finance.csv
+automatic.load.by.scheduler=false
+load.start.time=00h00
+load.frequency.in.minutes=1440
+ignore.invalid.rows=false
+unactivate.not.found=false
+unactivate.selection.clause=
+report.mail=
+report.file.path=/outputs/report-finance.log
+			</default>
+		</configuration-block>
+		<configuration-block identifier="csv_mapping" type="JAVASCRIPT">
+			<name>CSV file mapping</name>
+			<description>The configuration of the mapping between the CSV file columns and the Object attributes.
+			This configuration is implemented as JavaScript.</description>
+			<version>0</version>
+			<default>
+/*
+Please change the mapping so that it reflects the structure of your CSV file.
+*/
+target.setRefId(csv.get("ref_id"));
+target.setDescription(csv.get("line_item_description"));
+target.setLineId(csv.get("line_id"));
+target.setQuantity(csv.get("quantity"));
+target.setQuantityTotalReceived(csv.get("quantity_total_received"));
+target.setQuantityBilled(csv.get("quantity_billed"));
+target.setAmount(csv.get("amount"));
+target.setAmountReceived(csv.get("amount_received"));
+target.setAmountBilled(csv.get("amount_billed"));
+target.setUnitPrice(csv.get("unit_price"));
+target.setMaterialCode(csv.get("material_code"));
+target.setGlAccount(csv.get("gl_account"));
+target.setIsOpex(csv.get("is_opex"));
+target.setCreationDate(csv.get("creation_date"));
+target.setDueDate(csv.get("due_date"));
+target.setCurrencyCode(csv.get("currency_code"));
+target.setIsCancelled(csv.get("is_cancelled"));
+target.setPoRefId(csv.get("purchase_order_number"));
+target.setPoDescription(csv.get("po_description"));
+target.setRequesterErpRefId(csv.get("requester_actor_ref_id"));
+target.setCostCenterRefId(csv.get("cost_center_ref_id"));
+target.setSupplierRefId(csv.get("supplier_ref_id"));
+target.setPoPortfolioEntryErpRefId(csv.get("project_code_ref_id"));
+//If you set ignoreRecord to "true", the record is not saved into the database
+ignoreRecord=false;
+			</default>
+		</configuration-block>
+		<supported-data-type>PurchaseOrder</supported-data-type>
+		<supported-data-type>PurchaseOrderLineItem</supported-data-type>
+	</plugin>
+	<plugin>
+		<identifier>notification1</identifier>
+		<name>BizDock Event handler</name>
+		<description>The event handler plugin is a BizDock plugin which trigger some actions (mail, web service...) when a BizDock data is created/changed/deleted.</description>
+		<clazz>services.plugins.system.notification1.EventNotificationPluginRunner</clazz>
+		<version>1.0</version>
+		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins:bizdock-event-handler</vendor-url>
+		<multi-instance>true</multi-instance>
+		<event-interface in="false" out="true"/>
+		<configuration-block identifier="hook_script" type="JAVASCRIPT">
+			<name>Hook script</name>
+			<description>A script which defines which events are to be listened
+			and what actions must be performed for a named event. Please note that such
+			script may have some impact on the global performance of the system.</description>
+			<version>0</version>
+			<default><![CDATA[
+/*
+Please note that this script contains the "scriptUtils" variable
+which offers various utilities methods.
+*/
+
+/**
+ * Method which returns a list of object type of be "registered" for events.
+ */
+function register(supportedDataTypes){
+	/*
+	Example:
+	supportedDataTypes.add("PortfolioEntry");
+	supportedDataTypes.add("Actor");
+	*/
+}
+
+
+/**
+ * Method called each time a registered event is triggered
+ * - objectType : the type of the object (see BizDock documentation)
+ * - objectId : the id of the object
+ * - eventType : CREATE, UPDATE, DELETE
+ * - modifiedAttributes : the attributes modified (only in case of UPDATE)
+ */
+function notify(objectType, objectId, eventType, modifiedAttributes){
+	/*
+    Please insert an action to be performed
+    Examples:
+    - login an event
+			scriptUtils.logMessage(false,"message");
+
+		- list and get modified attributes of an object
+    if(eventType=="UPDATE" && objectType=="Actor"){
+    	scriptUtils.logMessage(false,"Modified attributes are : "+modifiedAttributes);
+        if(modifiedAttributes.containsKey("lastName")){
+          	scriptUtils.logMessage(false,"Last name has been modified !");
+        }
+  	}
+
+    - sending an e-mail
+    scriptUtils.sendMail("A mail subject","A mail content","james@bond.co.uk");
+
+    - calling a web service
+    var request=scriptUtils.wsCall("http://server.com/sample");
+  	request.setMethod("GET");
+  	request.execute(
+      function(response){
+        var result=JSON.parse(response.getBody());
+        scriptUtils.logEventMessage(false,objectType, objectId, eventType,"WS response is : "+result.value);
+  	  },
+      function(errorMessage){
+        scriptUtils.logEventMessage(true,objectType, objectId, eventType,"WS call error : "+errorMessage);
+      });
+
+	- getting an object from its id
+  	var object=scriptUtils.getObjectFromId(objectType,objectId);
+
+  	  	- performing a query
+  	var query=scriptUtils.createQuery("PortfolioEntry");
+    var clause=query.expr().like("name","C%");
+    var list=query.executeQuery(clause);
+    var result="";
+  	for (i = 0; i < list.size(); i++) {
+    	result=result+list.get(i).name+"\n";
+  	}
+    scriptUtils.logMessage(false,"Response is : "+result);
+    */
+}
+			]]></default>
+		</configuration-block>
+		<supported-data-type>Actor</supported-data-type>
+		<supported-data-type>ApplicationBlock</supported-data-type>
+		<supported-data-type>BudgetBucket</supported-data-type>
+ 		<supported-data-type>BudgetBucketLine</supported-data-type>
+		<supported-data-type>CostCenter</supported-data-type>
+		<supported-data-type>Iteration</supported-data-type>
+		<supported-data-type>OrgUnit</supported-data-type>
+		<supported-data-type>PortfolioEntryBudget</supported-data-type>
+		<supported-data-type>PortfolioEntryBudgetLine</supported-data-type>
+		<supported-data-type>PortfolioEntryEvent</supported-data-type>
+		<supported-data-type>PortfolioEntry</supported-data-type>
+		<supported-data-type>PortfolioEntryPlanningPackage</supported-data-type>
+		<supported-data-type>PortfolioEntryReport</supported-data-type>
+		<supported-data-type>PortfolioEntryResourcePlanAllocatedActor</supported-data-type>
+		<supported-data-type>PortfolioEntryResourcePlanAllocatedOrgUnit</supported-data-type>
+		<supported-data-type>PortfolioEntryResourcePlanAllocatedCompetency</supported-data-type>
+		<supported-data-type>PortfolioEntryRisk</supported-data-type>
+		<supported-data-type>Portfolio</supported-data-type>
+		<supported-data-type>Stakeholder</supported-data-type>
+		<supported-data-type>PurchaseOrderLineItem</supported-data-type>
+		<supported-data-type>PurchaseOrder</supported-data-type>
+  		<supported-data-type>Release</supported-data-type>
+		<supported-data-type>Requirement</supported-data-type>
+		<supported-data-type>TimesheetActivityAllocatedActor</supported-data-type>
+		<supported-data-type>WorkOrder</supported-data-type>
+		<supported-data-type>User</supported-data-type>
+		<supported-data-type>SystemLevelRoleType</supported-data-type>
+	</plugin>
+	<plugin>
+		<identifier>genint1</identifier>
+		<name>BizDock URL integration</name>
+		<description>Light integration plugin based on simple URL</description>
+		<clazz>services.plugins.system.genint1.GenericExternalIntegrationPluginRunner</clazz>
+		<version>1.0</version>
+		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins:bizdock-url-integration</vendor-url>
+		<multi-instance>true</multi-instance>
+		<event-interface in="false" out="false"/>
+		<configuration-block identifier="main" type="PROPERTIES">
+			<name>Parameters</name>
+			<description>The URL and label parameters for the link</description>
+			<version>1</version>
+			<default>
+#If the path is empty, no menu is added in BizDock
+external.service.path=
+external.service.label=
+			</default>
+		</configuration-block>
+	</plugin>
+	<plugin>
+		<identifier>schedule1</identifier>
+		<name>BizDock Scheduled script</name>
+		<description>A script to be scheduled at a configurable frequency</description>
+		<clazz>services.plugins.system.schedule1.HookScriptSchedulerPluginRunner</clazz>
+		<version>1.0</version>
+		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins:bizdock-scheduled-script</vendor-url>
+		<multi-instance>true</multi-instance>
+		<event-interface in="false" out="false"/>
+		<configuration-block identifier="main" type="PROPERTIES">
+			<name>Parameters</name>
+			<description>The scheduler parametesr (start time and frequency)</description>
+			<version>1</version>
+			<default>
+#Define a start time for the scheduler and a frequency. Frequency must be higher than 5 minutes
+#start.time=00h00
+#frequency.in.minutes=1440
+			</default>
+		</configuration-block>
+		<configuration-block identifier="hook_script" type="JAVASCRIPT">
+			<name>Hook script</name>
+			<description>A script which will be run at the specified frequency</description>
+			<version>1</version>
+			<default>
+/*
+Please note that this script contains the "scriptUtils" variable
+which offers various utilities methods.
+*/
+
+/**
+ * Method called each time the scheduler wakes up
+ * - date : the date of the scheduler execution
+ */
+function perform(date){
+	//scriptUtils.logMessage(false,"Execution time is : "+date);
+}
+			</default>
+		</configuration-block>
+	</plugin>
+	<plugin>
+		<identifier>widgetkit1</identifier>
+		<name>BizDock Standard Widget Library</name>
+		<description>The standard list of common widgets for BizDock</description>
+		<clazz>services.plugins.system.widgetkit1.StandardWidgetKitPlugin</clazz>
+		<version>1.0</version>
+		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins</vendor-url>
+		<multi-instance>false</multi-instance>
+		<auto-register>true</auto-register>
+		<event-interface in="false" out="false"/>
+	    <widget>
+			<identifier>WG2</identifier>
+			<name>plugin.widget_kit.unread_notifications.title</name>
+			<description>plugin.widget_kit.unread_notifications.description</description>
+			<class>services.plugins.system.widgetkit1.UnreadNotificationsWidgetController</class>
+			<hasEditMode>false</hasEditMode>
+		</widget>
+        <widget>
+            <identifier>WG3</identifier>
+            <name>plugin.widget_kit.last_initiatives.title</name>
+            <description>plugin.widget_kit.last_initiatives.description</description>
+            <class>services.plugins.system.widgetkit1.LastInitiativesWidgetController</class>
+            <hasEditMode>false</hasEditMode>
+        </widget>
+        <widget>
+            <identifier>WG4</identifier>
+            <name>plugin.widget_kit.help.title</name>
+            <description>plugin.widget_kit.help.description</description>
+            <class>services.plugins.system.widgetkit1.HelpWidgetController</class>
+            <hasEditMode>false</hasEditMode>
+        </widget>
+        <widget>
+            <identifier>WG5</identifier>
+            <name>plugin.widget_kit.quick_links.title</name>
+            <description>plugin.widget_kit.quick_links.description</description>
+            <class>services.plugins.system.widgetkit1.QuickLinksWidgetController</class>
+            <hasEditMode>false</hasEditMode>
+        </widget>
+        <widget>
+            <identifier>WG6</identifier>
+            <name>plugin.widget_kit.my_initiatives.title</name>
+            <description>plugin.widget_kit.my_initiatives.description</description>
+            <class>services.plugins.system.widgetkit1.MyInitiativesWidgetController</class>
+            <hasEditMode>false</hasEditMode>
+        </widget>
+        <widget>
+            <identifier>WG7</identifier>
+            <name>plugin.widget_kit.my_portfolios.title</name>
+            <description>plugin.widget_kit.my_portfolios.description</description>
+            <class>services.plugins.system.widgetkit1.MyPortfoliosWidgetController</class>
+            <hasEditMode>false</hasEditMode>
+        </widget>
+        <widget>
+            <identifier>WG8</identifier>
+            <name>plugin.widget_kit.my_budget_buckets.title</name>
+            <description>plugin.widget_kit.my_budget_buckets.description</description>
+            <class>services.plugins.system.widgetkit1.MyBudgetBucketsWidgetController</class>
+            <hasEditMode>false</hasEditMode>
+        </widget>
+        <widget>
+            <identifier>WG9</identifier>
+            <name>plugin.widget_kit.initiative_kpi.title</name>
+            <description>plugin.widget_kit.initiative_kpi.description</description>
+            <class>services.plugins.system.widgetkit1.InitiativeKpiWidgetController</class>
+            <hasEditMode>true</hasEditMode>
+        </widget>
+        <widget>
+            <identifier>WG10</identifier>
+            <name>plugin.widget_kit.my_staff.title</name>
+            <description>plugin.widget_kit.my_staff.description</description>
+            <class>services.plugins.system.widgetkit1.MyStaffWidgetController</class>
+            <hasEditMode>false</hasEditMode>
+        </widget>
+        <widget>
+            <identifier>WG11</identifier>
+            <name>plugin.widget_kit.timesheets_subordinates.title</name>
+            <description>plugin.widget_kit.timesheets_subordinates.description</description>
+            <class>services.plugins.system.widgetkit1.TimesheetsSubordinatesWidgetController</class>
+            <hasEditMode>false</hasEditMode>
+        </widget>
+	</plugin>
+	<i18n-messages language="en"><![CDATA[
+#----------------------
+# plugin / redmine / portfolio entry
+#----------------------
+
+plugin.redmine.portfolio_entry.not_registered.header=The initiative is currently not registered to be synchronized with a Redmine project. Please select one of the following options to start the registration process:
+plugin.redmine.portfolio_entry.not_registered.create.label=Create a new project in Redmine
+plugin.redmine.portfolio_entry.not_registered.create.confirmation=Are you sure you want to create a new project in Redmine?
+plugin.redmine.portfolio_entry.not_registered.create.successfull=The Redmine project has been successfully created.
+plugin.redmine.portfolio_entry.not_registered.create.error=An error has occurred and the Redmine project was not created. Please try again or contact your administrator if the problem persists.
+plugin.redmine.portfolio_entry.not_registered.create.warn.already_existing=The Redmine project has not been created because it is already existing. Please use the following form to associate it.
+plugin.redmine.portfolio_entry.not_registered.select.label=Select an existing project from Redmine
+
+plugin.redmine.portfolio_entry.remove_project_link.confirmation=Are you sure you want to remove this link?
+plugin.redmine.portfolio_entry.remove_registration.confirmation=Are you sure you want to remove the Redmine synchronization for the initiative?
+
+plugin.redmine.portfolio_entry.trigger_load.successfull=The synchronization process has been triggered.
+plugin.redmine.portfolio_entry.save_configuration.successfull=The configuration has been updated.
+plugin.redmine.portfolio_entry.remove_project_link.successfull=The link with the Redmine project has been removed. This process is done asynchronously: the result will be effective and visible in few seconds.
+plugin.redmine.portfolio_entry.remove_registration.successfull=The initiative is no more registered. The removing of the corresponding requirements and iterations is done asynchronously.
+
+plugin.redmine.portfolio_entry.select_project.title=Select and associate a Redmine project
+plugin.redmine.portfolio_entry.select_project.label=Redmine project
+plugin.redmine.portfolio_entry.select_project.error.already_associated=This Redmine project is already associated to the initiative.
+plugin.redmine.portfolio_entry.select_project.successfull=The Redmine project has been successfully associated.
+
+plugin.redmine.portfolio_entry.index.plugindetails.title=Plugin details
+plugin.redmine.portfolio_entry.index.administration.title=Administration
+plugin.redmine.portfolio_entry.index.administration.trigger.action=Trigger the load
+plugin.redmine.portfolio_entry.index.administration.unregister.action=Unregister the initiative
+plugin.redmine.portfolio_entry.index.configuration.title=Configuration
+plugin.redmine.portfolio_entry.index.configuration.needs.label=Needs
+plugin.redmine.portfolio_entry.index.configuration.defects.label=Defects
+plugin.redmine.portfolio_entry.index.configuration.iterations.label=Iterations
+plugin.redmine.portfolio_entry.index.projects.title=Related Redmine projects
+
+#----------------------
+# plugin / jira / portfolio entry
+#----------------------
+plugin.jira.descriptor.name=Atlassian Jira
+plugin.jira.descriptor.description=JIRA is a proprietary issue tracking product, developed by Atlassian. It provides bug tracking and issue tracking functions.
+plugin.jira.load.action.name=Load Jira configuration
+plugin.jira.config.main.name=Global properties
+plugin.jira.config.main.description=Global properties for the plugin
+plugin.jira.config.status_mapping.name=Requirement status mapping
+plugin.jira.config.status_mapping.description=The configuration of the mapping between the Jira status and the BizDock requirement status.
+plugin.jira.config.priority_mapping.name=Requirement priority mapping
+plugin.jira.config.priority_mapping.description=The configuration of the mapping between the Jira priorities and the BizDock requirement priorities.
+plugin.jira.config.severity_mapping.name=Requirement severity mapping
+plugin.jira.config.severity_mapping.description=The configuration of the mapping between the Jira severities and the BizDock requirement severities.
+
+
+plugin.jira.portfolio_entry.not_registered.header=The initiative is currently not registered to be synchronized with a Jira project. Please select one of the following options to start the registration process:
+plugin.jira.portfolio_entry.not_registered.create.label=Create a new project in Jira
+plugin.jira.portfolio_entry.not_registered.create.confirmation=Are you sure you want to create a new project in Jira?
+plugin.jira.portfolio_entry.not_registered.create.successfull=The Jira project has been successfully created.
+plugin.jira.portfolio_entry.not_registered.create.error=An error has occurred and the Jira project was not created. Please try again or contact your administrator if the problem persists.
+plugin.jira.portfolio_entry.not_registered.create.warn.already_existing=The Jira project has not been created because it is already existing. Please use the following form to associate it.
+plugin.jira.portfolio_entry.not_registered.select.label=Select an existing project from Jira
+
+plugin.jira.portfolio_entry.remove_project_link.confirmation=Are you sure you want to remove this link?
+plugin.jira.portfolio_entry.remove_registration.confirmation=Are you sure you want to remove the Jira synchronization for the initiative?
+
+plugin.jira.portfolio_entry.trigger_load.successfull=The synchronization process has been triggered.
+plugin.jira.portfolio_entry.save_configuration.successfull=The configuration has been updated.
+plugin.jira.portfolio_entry.remove_project_link.successfull=The link with the Redmine project has been removed.
+plugin.jira.portfolio_entry.remove_registration.successfull=The initiative is no more registered.
+
+plugin.jira.portfolio_entry.select_project.title=Select and associate a Jira project
+plugin.jira.portfolio_entry.select_project.label=Jira project
+plugin.jira.portfolio_entry.select_project.error.already_associated=This Jira project is already associated to the initiative.
+plugin.jira.portfolio_entry.select_project.successfull=The Jira project has been successfully associated.
+
+plugin.jira.portfolio_entry.index.plugindetails.title=Plugin details
+plugin.jira.portfolio_entry.index.administration.title=Administration
+plugin.jira.portfolio_entry.index.administration.trigger.action=Trigger the load
+plugin.jira.portfolio_entry.index.administration.unregister.action=Unregister the initiative
+plugin.jira.portfolio_entry.index.configuration.title=Configuration
+plugin.jira.portfolio_entry.index.configuration.needs.label=Needs
+plugin.jira.portfolio_entry.index.configuration.defects.label=Defects
+plugin.jira.portfolio_entry.index.projects.title=Related Jira projects
+
+#----------------------
+# plugin / widget kit
+#----------------------
+
+plugin.widget_kit.edit_widget.already_open=Another widget is already opened in configuration mode: Please configure it before editing this one.
+plugin.widget_kit.unread_notifications.title=Unread notifications
+plugin.widget_kit.unread_notifications.description=Display the unread notifications (if you activated the internal notification system)
+plugin.widget_kit.unread_notifications.unavailable=This widget is unavailable because the notification sending system used by BizDock is "Email".
+plugin.widget_kit.last_initiatives.title=Last created initiatives
+plugin.widget_kit.last_initiatives.description=Display the last created initiatives (according to the user permissions)
+plugin.widget_kit.last_initiatives.create=Create an initiative
+plugin.widget_kit.help.title=Help
+plugin.widget_kit.help.description=Display some links to the official BizDock support.
+plugin.widget_kit.help.bizdock=What is BizDock?
+plugin.widget_kit.help.create=Create an initiative
+plugin.widget_kit.help.roadmap=Roadmap
+plugin.widget_kit.help.reporting=Reporting
+plugin.widget_kit.help.profile=My profile
+plugin.widget_kit.quick_links.title=Quick links
+plugin.widget_kit.quick_links.description=Display direct links to major BizDock functionalities.
+plugin.widget_kit.quick_links.new_initiative.label=New initiative
+plugin.widget_kit.quick_links.new_initiative.description=Submit an idea or start a new project
+plugin.widget_kit.quick_links.roadmap.label=Roadmap
+plugin.widget_kit.quick_links.roadmap.description=View all initiatives and filter them according to your needs
+plugin.widget_kit.quick_links.reporting.label=Reporting
+plugin.widget_kit.quick_links.reporting.description=Improve your analysis capabilities with BizDock reports
+plugin.widget_kit.quick_links.search.label=Search
+plugin.widget_kit.quick_links.search.description=Find easily and quickly what you want
+plugin.widget_kit.no_actor.help=Your BizDock user account is not associated with an employee. Consequently, this widget is not available.
+plugin.widget_kit.my_initiatives.title=My active initiatives
+plugin.widget_kit.my_initiatives.description=Displays the active initiatives (as manager and as stakeholder) of the current sign-in user.
+plugin.widget_kit.my_initiatives.as_manager=As manager
+plugin.widget_kit.my_initiatives.as_stakeholder=As stakeholder
+plugin.widget_kit.my_portfolios.title=My active portfolios
+plugin.widget_kit.my_portfolios.description=Displays the active portfolios (as manager and as stakeholder) of the current sign-in user.
+plugin.widget_kit.my_portfolios.as_manager=As manager
+plugin.widget_kit.my_portfolios.as_stakeholder=As stakeholder
+plugin.widget_kit.my_budget_buckets.title=My active budget buckets
+plugin.widget_kit.my_budget_buckets.description=Displays the active budget buckets (as owner and as responsible) of the current sign-in user.
+plugin.widget_kit.my_budget_buckets.as_owner=As owner
+plugin.widget_kit.my_budget_buckets.as_responsible=As responsible
+plugin.widget_kit.my_staff.title=My staff
+plugin.widget_kit.my_staff.description=Displays the active subordinates and org units of the current sign-in user.
+plugin.widget_kit.my_staff.subordinates=Subordinates
+plugin.widget_kit.my_staff.org_units=Org units
+plugin.widget_kit.timesheets_subordinates.title=Timesheets of subordinates
+plugin.widget_kit.timesheets_subordinates.description=Displays the timesheets to review and the late timesheets of the subordinates of the current sign-in user.
+plugin.widget_kit.timesheets_subordinates.late=Late timesheets
+plugin.widget_kit.timesheets_subordinates.submitted=Timesheets to review
+plugin.widget_kit.initiative_kpi.title=Initiative's KPI
+plugin.widget_kit.initiative_kpi.description=Displays a specific KPI for a selected initiative.
+plugin.widget_kit.initiative_kpi.form.kpi_uid=KPI
+plugin.widget_kit.initiative_kpi.form.portfolio_entry_id=Initiative
+plugin.widget_kit.initiative_kpi.form.error.unknown_kpi=The KPI doesn't exist or is not active.
+plugin.widget_kit.initiative_kpi.form.error.unknown_pe=The initiative doesn't exist.
+plugin.widget_kit.initiative_kpi.form.error.unauthorized=You are not authorized to display this KPI for the selected initiative.
+
+	]]></i18n-messages>
+	<i18n-messages language="de"><![CDATA[
+#----------------------
+# plugin / redmine / portfolio entry
+#----------------------
+
+plugin.redmine.portfolio_entry.not_registered.header=Initiative nicht registriert, muss mit Redmine Projekt synchronisiert werden. Bitte wählen Sie eine der folgenden Optionen aus um den Registrierungsprozess zu starten:
+plugin.redmine.portfolio_entry.not_registered.create.confirmation=Sind Sie sicher, dass Sie in Redmine ein neues Projekt eröffnen wollen?
+plugin.redmine.portfolio_entry.not_registered.create.successfull=Redmine Projekt eröffnet.
+plugin.redmine.portfolio_entry.not_registered.create.error=Fehler: Redmine Projekt konnte nicht eröffnet werden. Bitte versuchen Sie es nochmals oder kontaktieren Sie den Administartor.
+plugin.redmine.portfolio_entry.not_registered.create.warn.already_existing=Redmine Projekt existiert bereits, es wurde kein Neues eröffnet. Bitte benutzen Sie folgendes Formular um die Verknüpfung herzustellen.
+plugin.redmine.portfolio_entry.not_registered.create.label=Neues Redmine Projekt eröffnen
+plugin.redmine.portfolio_entry.not_registered.select.label=Bestehendes Redmine Projekt wählen
+
+plugin.redmine.portfolio_entry.remove_project_link.confirmation=Sind Sie sicher, dass Sie diesen Link löschen wollen?
+plugin.redmine.portfolio_entry.remove_registration.confirmation=Sind Sie sicher, dass Sie die Synchronisation dieser Initiative mit Redmine löschen wollen?
+
+plugin.redmine.portfolio_entry.trigger_load.successfull=Synchronisation gestarted.
+plugin.redmine.portfolio_entry.save_configuration.successfull=Konfiguration aktualisiert.
+plugin.redmine.portfolio_entry.remove_project_link.successfull=Verknüpfung mit dem Redmine-Projekt gelöscht. Dies geschieht asynchron, das Ergebnis wird in wenigen Sekunden sichtbar sein.
+plugin.redmine.portfolio_entry.remove_registration.successfull=Initiative nicht mehr registriert. Die entsprechenden Anforderungen und Iterationen werden nun asychron gelöscht.
+
+plugin.redmine.portfolio_entry.select_project.title=Redmine Projekt wählen und verknüpfen
+plugin.redmine.portfolio_entry.select_project.label=Redmine Projekt
+plugin.redmine.portfolio_entry.select_project.error.already_associated=Dieses Redmine Projekt ist bereits mit eine Initiative verknüpft.
+plugin.redmine.portfolio_entry.select_project.successfull=Redmine Projekt wurde verknüpft.
+
+plugin.redmine.portfolio_entry.index.plugindetails.title=Plugin details
+plugin.redmine.portfolio_entry.index.administration.title=Verwalten
+plugin.redmine.portfolio_entry.index.administration.trigger.action=Starten
+plugin.redmine.portfolio_entry.index.administration.unregister.action=Verküpfung mit Initiative löschen
+plugin.redmine.portfolio_entry.index.configuration.title=Konfiguration
+plugin.redmine.portfolio_entry.index.configuration.needs.label=Anforderungen
+plugin.redmine.portfolio_entry.index.configuration.defects.label=Mängel
+plugin.redmine.portfolio_entry.index.configuration.iterations.label=Iterations
+plugin.redmine.portfolio_entry.index.projects.title=Zugehörige Redmine Projekte
+
+#----------------------
+# plugin / jira / portfolio entry
+#----------------------
+plugin.jira.descriptor.name=Atlassian Jira
+plugin.jira.descriptor.description=JIRA is a proprietary issue tracking product, developed by Atlassian. It provides bug tracking and issue tracking functions.
+plugin.jira.load.action.name=Load Jira configuration
+plugin.jira.config.main.name=Global properties
+plugin.jira.config.main.description=Global properties for the plugin
+plugin.jira.config.status_mapping.name=Requirement status mapping
+plugin.jira.config.status_mapping.description=The configuration of the mapping between the Jira status and the BizDock requirement status.
+plugin.jira.config.priority_mapping.name=Requirement priority mapping
+plugin.jira.config.priority_mapping.description=The configuration of the mapping between the Jira priorities and the BizDock requirement priorities.
+plugin.jira.config.severity_mapping.name=Requirement severity mapping
+plugin.jira.config.severity_mapping.description=The configuration of the mapping between the Jira severities and the BizDock requirement severities.
+
+
+plugin.jira.portfolio_entry.not_registered.header=Initiative nicht registriert, muss mit Jira Projekt synchronisiert werden. Bitte wählen Sie eine der folgenden Optionen aus um den Registrierungsprozess zu starten:
+plugin.jira.portfolio_entry.not_registered.create.confirmation=Sind Sie sicher, dass Sie in Jira ein neues Projekt eröffnen wollen?
+plugin.jira.portfolio_entry.not_registered.create.successfull=Jira Projekt eröffnet.
+plugin.jira.portfolio_entry.not_registered.create.error=Fehler: Jira Projekt konnte nicht eröffnet werden. Bitte versuchen Sie es nochmals oder kontaktieren Sie den Administartor.
+plugin.jira.portfolio_entry.not_registered.create.warn.already_existing=Jira Projekt existiert bereits, es wurde kein Neues eröffnet. Bitte benutzen Sie folgendes Formular um die Verknüpfung herzustellen.
+plugin.jira.portfolio_entry.not_registered.create.label=Neues Jira Projekt eröffnen
+plugin.jira.portfolio_entry.not_registered.select.label=Bestehendes Jira Projekt wählen
+
+plugin.jira.portfolio_entry.remove_project_link.confirmation=Sind Sie sicher, dass Sie diesen Link löschen wollen?
+plugin.jira.portfolio_entry.remove_registration.confirmation=Sind Sie sicher, dass Sie die Synchronisation dieser Initiative mit Jira löschen wollen?
+
+plugin.jira.portfolio_entry.trigger_load.successfull=Synchronisation gestarted.
+plugin.jira.portfolio_entry.save_configuration.successfull=Konfiguration aktualisiert.
+plugin.jira.portfolio_entry.remove_project_link.successfull=Link mit Redmine Projekt gelöscht.
+plugin.jira.portfolio_entry.remove_registration.successfull=Initiative nicht mehr registriert.
+
+plugin.jira.portfolio_entry.select_project.title=Jira Projekt wählen und verknüpfen
+plugin.jira.portfolio_entry.select_project.label=Jira Projekt
+plugin.jira.portfolio_entry.select_project.error.already_associated=Dieses Jira Projekt ist bereits mit eine Initiative verknüpft.
+plugin.jira.portfolio_entry.select_project.successfull=Jira Projekt wurde verknüpft.
+
+plugin.jira.portfolio_entry.index.plugindetails.title=Plugin details
+plugin.jira.portfolio_entry.index.administration.title=Verwalten
+plugin.jira.portfolio_entry.index.administration.trigger.action=Starten
+plugin.jira.portfolio_entry.index.administration.unregister.action=Verküpfung mit Initiative löschen
+plugin.jira.portfolio_entry.index.configuration.title=Konfiguration
+plugin.jira.portfolio_entry.index.configuration.needs.label=Anforderungen
+plugin.jira.portfolio_entry.index.configuration.defects.label=Mängel
+plugin.jira.portfolio_entry.index.projects.title=Zugehörige Jira Projekte
+
+#----------------------
+# plugin / widget kit
+#----------------------
+
+plugin.widget_kit.edit_widget.already_open=Ein anderes Widget wird bereits bearbeitet. Speichern Sie dies bevor Sie dieses bearbeiten.
+plugin.widget_kit.unread_notifications.title=Ungelesene Mitteilungen
+plugin.widget_kit.unread_notifications.description=Nicht gelesene Mitteilungen anzeigen.
+plugin.widget_kit.unread_notifications.unavailable=Widget nicht verfügbar. BizDock Mitteilungen werden via Email zugestellt.
+plugin.widget_kit.last_initiatives.title=Die neuesten Initiativen
+plugin.widget_kit.last_initiatives.description=Anzeige der neuesten Intiativen.
+plugin.widget_kit.last_initiatives.create=Neu Initiative anlegen
+plugin.widget_kit.help.title=Hilfe
+plugin.widget_kit.help.description=Support links anzeigen.
+plugin.widget_kit.help.bizdock=Was ist BizDock?
+plugin.widget_kit.help.create=Neue Initiative erstellen
+plugin.widget_kit.help.roadmap=Roadmap
+plugin.widget_kit.help.reporting=Berichte
+plugin.widget_kit.help.profile=Mein Profil
+plugin.widget_kit.quick_links.title=Quick links
+plugin.widget_kit.quick_links.description=Links zu den Hauptfunktionnen.
+plugin.widget_kit.quick_links.new_initiative.label=Hinzufügen
+plugin.widget_kit.quick_links.new_initiative.description=Neue Initiative starten
+plugin.widget_kit.quick_links.roadmap.label=Roadmap
+plugin.widget_kit.quick_links.roadmap.description=Öffentliche Initiativen anschauen
+plugin.widget_kit.quick_links.reporting.label=Berichte
+plugin.widget_kit.quick_links.reporting.description=Analysieren Sie ihre Initiativen mit den BizDock Berichten.
+plugin.widget_kit.quick_links.search.label=Suche
+plugin.widget_kit.quick_links.search.description=Finden Sie was Sie wollen
+plugin.widget_kit.no_actor.help=Your BizDock user account is not associated with an employee. Consequently, this widget is not available.
+plugin.widget_kit.my_initiatives.title=Meine Initiativen
+plugin.widget_kit.my_initiatives.description=Ihre Initiativen anzeigen (als Manager und als Projektbeteiligter).
+plugin.widget_kit.my_initiatives.as_manager=Als Manager
+plugin.widget_kit.my_initiatives.as_stakeholder=Als Projektbeteiligter
+plugin.widget_kit.my_portfolios.title=Meine Portfolio
+plugin.widget_kit.my_portfolios.description=Ihre Portfolios anzeigen (als Manager und als Projektbeteiligter).
+plugin.widget_kit.my_portfolios.as_manager=Als Manager
+plugin.widget_kit.my_portfolios.as_stakeholder=Als Projektbeteiligter
+plugin.widget_kit.my_budget_buckets.title=Budgetposten
+plugin.widget_kit.my_budget_buckets.description=Ihre Budgetposten anzeigen (als Besitzer und als Vorgesetzter).
+plugin.widget_kit.my_budget_buckets.as_owner=Als Besitzer
+plugin.widget_kit.my_budget_buckets.as_responsible=Als Vorgesetzter
+plugin.widget_kit.my_staff.title=Meine Mitarbeiter
+plugin.widget_kit.my_staff.description=Meine Mitarbeiter und Organisationseinheiten anzeigen.
+plugin.widget_kit.my_staff.subordinates=Arbeitnehmer
+plugin.widget_kit.my_staff.org_units=Organisationseinheit
+plugin.widget_kit.timesheets_subordinates.title=Zeiterfassung der Mitarbeiter
+plugin.widget_kit.timesheets_subordinates.description=Zeiterfassungen genehmigen und verspätete anfordern.
+plugin.widget_kit.timesheets_subordinates.late=Erfassung verspätet
+plugin.widget_kit.timesheets_subordinates.submitted=Zeiterfassung genehmigen
+plugin.widget_kit.initiative_kpi.title=KPI einer Initiative
+plugin.widget_kit.initiative_kpi.description=Anzeige eines KPI einer Initiative.
+plugin.widget_kit.initiative_kpi.form.kpi_uid=KPI
+plugin.widget_kit.initiative_kpi.form.portfolio_entry_id=Initiative
+plugin.widget_kit.initiative_kpi.form.error.unknown_kpi=KPI existiert nicht oder ist nicht mehr aktiv.
+plugin.widget_kit.initiative_kpi.form.error.unknown_pe=Initiative existiert nicht mehr.
+plugin.widget_kit.initiative_kpi.form.error.unauthorized=Sie haben keine Zugriffsberechtigung für diesen KPI.
+
+	]]></i18n-messages>
+	<i18n-messages language="fr"><![CDATA[
+#----------------------
+# plugin / redmine / portfolio entry
+#----------------------
+plugin.redmine.portfolio_entry.not_registered.header=Cette initiative n'est pas enregistrée pour être synchronisée avec un projet Redmine. Veuillez sélectionner une des options ci-dessous pour commencer le processus d'enregistrement.
+plugin.redmine.portfolio_entry.not_registered.create.confirmation=Etes-vous sûr(e) de vouloir créer un nouveau projet dans Redmine?
+plugin.redmine.portfolio_entry.not_registered.create.successfull=Le projet Redmine a été créé.
+plugin.redmine.portfolio_entry.not_registered.create.error=Une erreur est survenue et le projet Redmine n'a pas pu être créé. Veuillez réessayer ou contacter votre administrateur si le problème persiste.
+plugin.redmine.portfolio_entry.not_registered.create.warn.already_existing=Le projet Redmine n'a pas été créé car il existe déjà. Veuillez utiliser le formulaire ci-dessous pour le lier.
+plugin.redmine.portfolio_entry.not_registered.create.label=Créer un nouveau projet dans Redmine
+plugin.redmine.portfolio_entry.not_registered.select.label=Sélectionner un projet existant de Redmine
+
+plugin.redmine.portfolio_entry.remove_project_link.confirmation=Etes-vous sûr(e) de vouloir supprimer ce lien?
+plugin.redmine.portfolio_entry.remove_registration.confirmation=Etes-vous sûr(e) de vouloir supprimer la synchronisation Redmine de l'initiative?
+
+plugin.redmine.portfolio_entry.trigger_load.successfull=Le processus de synchronisation a été déclenché.
+plugin.redmine.portfolio_entry.save_configuration.successfull=La configuration a été mise à jour.
+plugin.redmine.portfolio_entry.remove_project_link.successfull=Le lien avec le projet Redmine a été supprimé. Cette opération est réalisée de manière asynchrone: le résultat sera effectif et visible dans quelques secondes.
+plugin.redmine.portfolio_entry.remove_registration.successfull=L'initiative n'est plus enregistrée. La suppression des exigences et itérations correspondantes est réalisée de manière asynchrone.
+
+plugin.redmine.portfolio_entry.select_project.title=Sélectionner et lier un projet Redmine
+plugin.redmine.portfolio_entry.select_project.label=Projet Redmine
+plugin.redmine.portfolio_entry.select_project.error.already_associated=Ce projet Redmine est déjà lié à l'initiative.
+plugin.redmine.portfolio_entry.select_project.successfull=Le projet Redmine a été lié.
+
+plugin.redmine.portfolio_entry.index.plugindetails.title=Détails du plugin
+plugin.redmine.portfolio_entry.index.administration.title=Administration
+plugin.redmine.portfolio_entry.index.administration.trigger.action=Déclencher le chargement
+plugin.redmine.portfolio_entry.index.administration.unregister.action=Délier l'initiative
+plugin.redmine.portfolio_entry.index.configuration.title=Configuration
+plugin.redmine.portfolio_entry.index.configuration.needs.label=Besoins
+plugin.redmine.portfolio_entry.index.configuration.defects.label=Anomalies
+plugin.redmine.portfolio_entry.index.configuration.iterations.label=Itérations
+plugin.redmine.portfolio_entry.index.projects.title=Projets Redmine liés
+
+#----------------------
+# plugin / jira / portfolio entry
+#----------------------
+plugin.jira.descriptor.name=Atlassian Jira
+plugin.jira.descriptor.description=JIRA is a proprietary issue tracking product, developed by Atlassian. It provides bug tracking and issue tracking functions.
+plugin.jira.load.action.name=Load Jira configuration
+plugin.jira.config.main.name=Global properties
+plugin.jira.config.main.description=Global properties for the plugin
+plugin.jira.config.status_mapping.name=Requirement status mapping
+plugin.jira.config.status_mapping.description=The configuration of the mapping between the Jira status and the BizDock requirement status.
+plugin.jira.config.priority_mapping.name=Requirement priority mapping
+plugin.jira.config.priority_mapping.description=The configuration of the mapping between the Jira priorities and the BizDock requirement priorities.
+plugin.jira.config.severity_mapping.name=Requirement severity mapping
+plugin.jira.config.severity_mapping.description=The configuration of the mapping between the Jira severities and the BizDock requirement severities.
+
+plugin.jira.portfolio_entry.not_registered.header=Cette initiative n'est pas enregistrée pour être synchronisée avec un projet Jira. Veuillez sélectionner une des options ci-dessous pour commencer le processus d'enregistrement.
+plugin.jira.portfolio_entry.not_registered.create.confirmation=Etes-vous sûr(e) de vouloir créer un nouveau projet dans Jira?
+plugin.jira.portfolio_entry.not_registered.create.successfull=Le projet Jira a été créé.
+plugin.jira.portfolio_entry.not_registered.create.error=Une erreur est survenue et le projet Jira n'a pas pu être créé. Veuillez réessayer ou contacter votre administrateur si le problème persiste.
+plugin.jira.portfolio_entry.not_registered.create.warn.already_existing=Le projet Jira n'a pas été créé car il existe déjà. Veuillez utiliser le formulaire ci-dessous pour le lier.
+plugin.jira.portfolio_entry.not_registered.create.label=Créer un nouveau projet dans Jira
+plugin.jira.portfolio_entry.not_registered.select.label=Sélectionner un projet existant de Jira
+
+plugin.jira.portfolio_entry.remove_project_link.confirmation=Etes-vous sûr(e) de vouloir supprimer ce lien?
+plugin.jira.portfolio_entry.remove_registration.confirmation=Etes-vous sûr(e) de vouloir supprimer la synchronisation Jira de l'initiative?
+
+plugin.jira.portfolio_entry.trigger_load.successfull=Le processus de synchronisation a été déclenché.
+plugin.jira.portfolio_entry.save_configuration.successfull=La configuration a été mise à jour.
+plugin.jira.portfolio_entry.remove_project_link.successfull=Le lien avec le projet Redmine a été supprimé.
+plugin.jira.portfolio_entry.remove_registration.successfull=L'initiative n'est plus enregistrée.
+
+plugin.jira.portfolio_entry.select_project.title=Sélectionner et lier un projet Jira
+plugin.jira.portfolio_entry.select_project.label=Projet Jira
+plugin.jira.portfolio_entry.select_project.error.already_associated=Ce projet Jira est déjà lié à l'initiative.
+plugin.jira.portfolio_entry.select_project.successfull=Le projet Jira a été lié.
+
+plugin.jira.portfolio_entry.index.plugindetails.title=Détails du plugin
+plugin.jira.portfolio_entry.index.administration.title=Administration
+plugin.jira.portfolio_entry.index.administration.trigger.action=Déclencher le chargement
+plugin.jira.portfolio_entry.index.administration.unregister.action=Délier l'initiative
+plugin.jira.portfolio_entry.index.configuration.title=Configuration
+plugin.jira.portfolio_entry.index.configuration.needs.label=Besoins
+plugin.jira.portfolio_entry.index.configuration.defects.label=Anomalies
+plugin.jira.portfolio_entry.index.projects.title=Projets Jira liés
+
+#----------------------
+# plugin / widget kit
+#----------------------
+
+plugin.widget_kit.edit_widget.already_open=Un autre widget est déjà ouvert en mode configuration: Veuillez le configurer avant de modifier celui-ci
+plugin.widget_kit.unread_notifications.title=Notifications non lues
+plugin.widget_kit.unread_notifications.description=Affiche les notifications non lues (si le système d'envoi des notifications utilisé par BizDock est "Email")
+plugin.widget_kit.unread_notifications.unavailable=Ce widget n'est pas disponible car le système d'envoi des notifications utilisé par BizDock est "Email"
+plugin.widget_kit.last_initiatives.title=Dernières initiatives créées
+plugin.widget_kit.last_initiatives.description=Affiche les dernières initiatives créées (selon les permissions de l'utilisateur)
+plugin.widget_kit.last_initiatives.create=Créer une initiative
+plugin.widget_kit.help.title=Aide
+plugin.widget_kit.help.description=Affiche des liens vers le support BizDock.
+plugin.widget_kit.help.bizdock=Qu'est-ce que BizDock?
+plugin.widget_kit.help.create=Créer une initiative
+plugin.widget_kit.help.roadmap=Feuille de route
+plugin.widget_kit.help.reporting=Rapport
+plugin.widget_kit.help.profile=Mon profil
+plugin.widget_kit.quick_links.title=Liens rapides
+plugin.widget_kit.quick_links.description=Affiche des liens directs avec certaines fonctionnalités de BizDock.
+plugin.widget_kit.quick_links.new_initiative.label=Nouvel initiative
+plugin.widget_kit.quick_links.new_initiative.description=Soumettre une idée ou démarrer un nouveau projet.
+plugin.widget_kit.quick_links.roadmap.label=Feuille de route
+plugin.widget_kit.quick_links.roadmap.description=Découvrir toutes les initiatives et les filtrer selon vos besoins.
+plugin.widget_kit.quick_links.reporting.label=Rapport
+plugin.widget_kit.quick_links.reporting.description=Augmenter ses capacités d'analyse grâce aux rapports BizDock.
+plugin.widget_kit.quick_links.search.label=Rechercher
+plugin.widget_kit.quick_links.search.description=Trouver facilement et rapidement ce que vous désirez.
+plugin.widget_kit.no_actor.help=Votre compte utilisateur BizDock n'est pas associé à un employé. Par conséquent, ce widget n'est pas disponible.
+plugin.widget_kit.my_initiatives.title=Mes initiatives actives
+plugin.widget_kit.my_initiatives.description=Affiche les initiatives actives (en tant que responsable et intervenant) de l'utilisateur connecté.
+plugin.widget_kit.my_initiatives.as_manager=En tant que responsable
+plugin.widget_kit.my_initiatives.as_stakeholder=En tant qu'intervenant
+plugin.widget_kit.my_portfolios.title=Mes portefeuilles actifs
+plugin.widget_kit.my_portfolios.description=Affiche les portefeuilles actifs (en tant que responsable et intervenant) de l'utilisateur connecté.
+plugin.widget_kit.my_initiatives.as_manager=En tant que responsable
+plugin.widget_kit.my_initiatives.as_stakeholder=En tant qu'intervenant
+plugin.widget_kit.my_budget_buckets.title=Mes enveloppes actives
+plugin.widget_kit.my_budget_buckets.description=Affiche les enveloppes actives (en tant que propriétaire et responsable) de l'utilisateur connecté.
+plugin.widget_kit.my_budget_buckets.as_owner=En tant que propriétaire
+plugin.widget_kit.my_budget_buckets.as_responsible=En tant que responsable
+plugin.widget_kit.my_staff.title=Mon équipe
+plugin.widget_kit.my_staff.description=Affiche les subordonnés et les unité d'organisation actifs de l'utilisateur connecté.
+plugin.widget_kit.my_staff.subordinates=Subordonnés
+plugin.widget_kit.my_staff.org_units=Unités d'organisation
+plugin.widget_kit.timesheets_subordinates.title=Feuilles de temps des subordonnés
+plugin.widget_kit.timesheets_subordinates.description=Affiche les feuilles de temps à approuver et les feuilles de temps en retard des subordonnés de l'utilisateur connecté.
+plugin.widget_kit.timesheets_subordinates.late=Feuilles de temps en retard
+plugin.widget_kit.timesheets_subordinates.submitted=Feuilles de temps à approuver
+plugin.widget_kit.initiative_kpi.title=KPI d'initiative
+plugin.widget_kit.initiative_kpi.description=Affiche un KPI spécifique pour une initiative choisie.
+plugin.widget_kit.initiative_kpi.form.kpi_uid=KPI
+plugin.widget_kit.initiative_kpi.form.portfolio_entry_id=Initiative
+plugin.widget_kit.initiative_kpi.form.error.unknown_kpi=Ce KPI n'existe pas ou n'est pas actif.
+plugin.widget_kit.initiative_kpi.form.error.unknown_pe=Cette initiative n'existe pas.
+plugin.widget_kit.initiative_kpi.form.error.unauthorized=Vous n'êtes pas autorisé à afficher ce KPI pour l'initiative choisie.
+
+	]]></i18n-messages>
+</extension-descriptor>

@@ -1,0 +1,16 @@
+@(
+    id: Long, 
+    color: String, 
+    linkgen: framework.services.ext.api.ILinkGenerator,
+    title: String
+)
+
+@import commons._
+@import framework_views.parts
+
+@views.html.framework_views.dashboard.widget(id, title, color){
+
+    <script type="text/javascript">
+        bizdock_widget_displayErrorMessage(@id, "@parts.Msg("plugin.widget_kit.no_actor.help")");
+    </script>
+}

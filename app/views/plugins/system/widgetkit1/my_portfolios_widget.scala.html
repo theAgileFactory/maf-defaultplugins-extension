@@ -1,0 +1,25 @@
+@(
+    id: Long,
+    color: String,
+    linkgen: framework.services.ext.api.ILinkGenerator,
+    tab: String,
+    asManagerTable: framework.utils.Table[utils.table.PortfolioListView],
+    asManagerPagination: framework.utils.Pagination[models.pmo.Portfolio],
+    asStakeholderTable: framework.utils.Table[utils.table.PortfolioListView],
+    asStakeholderPagination: framework.utils.Pagination[models.pmo.Portfolio]
+)
+
+@import commons._
+@import framework_views.parts
+
+@containerId=@{
+    "my-portfolios-widget-" + id
+}
+
+@views.html.framework_views.dashboard.widget(id, parts.Msg.asString("plugin.widget_kit.my_portfolios.title"), color){
+
+    <div id="@containerId">
+        @my_portfolios_fragment_widget(id, linkgen, tab, asManagerTable, asManagerPagination, asStakeholderTable, asStakeholderPagination)
+    </div>
+
+}

@@ -1,0 +1,51 @@
+@* LICENSE
+ *
+ * Copyright (c) 2015, The Agile Factory SA and/or its affiliates. All rights
+ * reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; version 2 of the License.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
+ *@
+@(
+    routes: Map[String,String],
+    objectId: Long, 
+    dataType: framework.commons.DataType, 
+    pluginName: String,
+    selectProjectForm: Form[services.plugins.redmine.PortfolioEntryRegistrationController.SelectProjectFormData]
+)
+
+@import framework_views.parts
+@import services.plugins.redmine.PortfolioEntryRegistrationController._
+
+@templates.plugin_configurator_view(parts.Msg.asString("core.portfolio_entry.plugin_config.title"), objectId, dataType, pluginName){
+}{
+    <h4>@parts.Msg("plugin.redmine.portfolio_entry.select_project.title")</h4>
+    
+    @if(selectProjectForm.hasErrors()){
+        <div class="alert alert-danger">
+            <strong>@parts.Msg("standard.form.error.title")</strong><br/>
+        </div>
+    }
+        
+    <form action="@routes.get(ADD_PROJECT_ACTION)" method="post">
+        <fieldset>
+            @parts.singlevalue_picker(
+                selectProjectForm("redmineProjectId"),
+                parts.Msg.asString("plugin.redmine.portfolio_entry.select_project.label"),
+                routes.get(SEARCH_PROJECT_ACTION)
+            )
+            <input class="btn btn-primary" type="submit" value="@parts.Msg("button.associate")" />
+            <a class="btn btn-default" href="@routes.get(services.plugins.atlassian.jira.jira1.PortfolioEntryRegistrationController.INITIAL_ACTION)">@parts.Msg("button.cancel")</a>
+        </fieldset>
+    </form>
+
+}

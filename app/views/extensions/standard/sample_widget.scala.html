@@ -1,0 +1,22 @@
+@(id: Long, title: String, color: String, linkgen: framework.services.ext.api.ILinkGenerator)
+@views.html.framework_views.dashboard.widget(id, title,color){
+	This is a widget DISPLAY.<br/>
+	<a class="_maf_widget_widget_link" href="/hop/A">A link</a>
+	<a class="_maf_widget_widget_link" href="/hop/B">Another link</a>
+	<script type="text/javascript">
+	bizdock_widget_addEventListener(@id, function(event){
+		if(event.nature=="ACTION"){
+			var href=$(event.source).attr('href');
+			alert("URL : "+href);
+			var jqxhr = $.get("@linkgen.link("action",id)", function(data) {
+				bizdock_widget_displaySuccessMessage(@id, "It is "+data);
+			}).fail(function() {
+				alert("Error");
+			});	
+		}
+		if(event.nature=="EDIT"){
+			bizdock_widget_displayErrorMessage(@id, "Nooo");
+		}
+	});
+	</script>
+}

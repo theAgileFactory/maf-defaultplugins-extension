@@ -1,0 +1,12 @@
+@(id: Long, color: String, linkgen: framework.services.ext.api.ILinkGenerator, internalNotification: Boolean, notificationsTable: framework.utils.Table[utils.table.NotificationListView])
+
+@import commons._
+@import framework_views.parts
+
+@views.html.framework_views.dashboard.widget(id, parts.Msg.asString("plugin.widget_kit.unread_notifications.title"), color){
+    @if(internalNotification) {
+        @parts.table.tableview(notificationsTable)
+    }else{
+        @parts.Msg("plugin.widget_kit.unread_notifications.unavailable")
+    }
+}

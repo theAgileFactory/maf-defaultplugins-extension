@@ -1,0 +1,32 @@
+@(
+    id: Long,
+    linkgen: framework.services.ext.api.ILinkGenerator,
+    tab: String,
+    subordinatesTable: framework.utils.Table[utils.table.ActorListView],
+    subordinatesPagination: framework.utils.Pagination[models.pmo.Actor],
+    orgUnitsTable: framework.utils.Table[utils.table.OrgUnitListView],
+    orgUnitsPagination: framework.utils.Pagination[models.pmo.OrgUnit]
+)
+
+@import commons._
+@import framework_views.parts
+
+@containerId=@{
+    "my-staff-widget-" + id
+}
+
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" @if(tab.equals("subordinates")) {class="active"}><a href="#subordinates-@(id)" aria-controls="subordinates-@(id)" role="tab" data-toggle="tab">@parts.Msg("plugin.widget_kit.my_staff.subordinates")</a></li>
+    <li role="presentation" @if(tab.equals("org-units")) {class="active"}><a href="#org-units-@(id)" aria-controls="org-units-@(id)" role="tab" data-toggle="tab">@parts.Msg("plugin.widget_kit.my_staff.org_units")</a></li>
+</ul>
+
+<br/>
+
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane @if(tab.equals("subordinates")) {active}" id="subordinates-@(id)">
+        @parts.table.tableview_with_pagination_and_queryparams(subordinatesTable, subordinatesPagination, null, null, "tab=subordinates", true, containerId, linkgen.link("my-staff-paginate",id))
+    </div>
+    <div role="tabpanel" class="tab-pane @if(tab.equals("org-units")) {active}" id="org-units-@(id)">
+        @parts.table.tableview_with_pagination_and_queryparams(orgUnitsTable, orgUnitsPagination, null, null, "tab=org-units", true, containerId, linkgen.link("my-staff-paginate",id))
+    </div>
+</div>

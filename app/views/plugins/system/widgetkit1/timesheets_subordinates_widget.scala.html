@@ -1,0 +1,35 @@
+@(
+    id: Long,
+    color: String,
+    linkgen: framework.services.ext.api.ILinkGenerator,
+    tab: String,
+    submittedReportsTable: framework.utils.Table[utils.table.TimesheetReportListView],
+    lateReportsTable: framework.utils.Table[utils.table.TimesheetReportListView]
+)
+
+@import commons._
+@import framework_views.parts
+
+@views.html.framework_views.dashboard.widget(id, parts.Msg.asString("plugin.widget_kit.timesheets_subordinates.title"), color){
+
+    @if(submittedReportsTable != null) { 
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" @if(tab.equals("submitted")) {class="active"}><a href="#submitted-@(id)" aria-controls="submitted-@(id)" role="tab" data-toggle="tab">@parts.Msg("plugin.widget_kit.timesheets_subordinates.submitted")</a></li>
+            <li role="presentation" @if(tab.equals("late")) {class="active"}><a href="#late-@(id)" aria-controls="late-@(id)" role="tab" data-toggle="tab">@parts.Msg("plugin.widget_kit.timesheets_subordinates.late")</a></li>
+        </ul>
+        
+        <br/>
+        
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane @if(tab.equals("submitted")) {active}" id="submitted-@(id)">
+                @parts.table.tableview(submittedReportsTable)
+            </div>
+            <div role="tabpanel" class="tab-pane @if(tab.equals("late")) {active}" id="late-@(id)"> 
+                @parts.table.tableview(lateReportsTable)
+            </div>
+        </div> 
+    } else {
+        <strong>@parts.Msg("plugin.widget_kit.timesheets_subordinates.late")</strong>
+        @parts.table.tableview(lateReportsTable)
+    }
+}

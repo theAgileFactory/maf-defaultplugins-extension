@@ -1,0 +1,68 @@
+@(
+    id: Long, 
+    linkgen: framework.services.ext.api.ILinkGenerator,
+    configureForm: Form[services.plugins.system.widgetkit1.InitiativeKpiWidgetController.KpiSelectorFormData],
+    selectableKpis: framework.utils.ISelectableValueHolderCollection[String]
+)
+
+@import commons._
+@import framework_views.parts
+@import helper._
+@import bootstrap3._
+
+@containerId=@{
+    "initiative-kpi-widget-" + id
+}
+
+<div class="widget-edit-mode maf-form">
+    @if(configureForm.hasErrors()){
+        <div class="alert alert-danger">
+            <strong>@parts.Msg("standard.form.error.title")</strong><br/>
+        </div>
+    }
+     
+    <form action='@linkgen.link("kpi-process-configure",id)' method="POST" id="initiative-kpi-configure-form-@(id)">
+
+        <fieldset>
+        
+            @parts.dropdownlist(configureForm("kpiUid"), parts.Msg.asString("plugin.widget_kit.initiative_kpi.form.kpi_uid"), selectableKpis)
+
+            @parts.autocomplete(
+                configureForm("portfolioEntryId"),
+                parts.Msg.asString("plugin.widget_kit.initiative_kpi.form.portfolio_entry_id"),
+                "",
+                linkgen.link("kpi-search-portfolio-entry")
+            )
+            
+            <input class="btn btn-primary" type="submit" value="@parts.Msg("button.save")" />
+            <a id="initiative-kpi-configure-cancel-@(id)" class="btn btn-default" href="#">@parts.Msg("button.cancel")</a>
+            
+        </fieldset>
+
+    </form>
+    
+    <script>
+        $( "#initiative-kpi-configure-form-@(id)").submit(function( event ) {
+            event.preventDefault();
+            var $form = $(this),
+            url = $form.attr( "action" );
+            $.post(url, $form.serialize()).done(function( data ) {
+                $("#@(containerId)").html(data);
+            });
+        });
+        $( "#initiative-kpi-configure-cancel-@(id)").click(function( event ) {
+            event.preventDefault();
+            $("#maf_widget_widget_id_@(id)").find("._maf_widget_widget_command_display").click();
+        });
+    </script>
+
+</div> 
+
+<script>
+if($(".widget-edit-mode").length > 1) {
+    $("#maf_widget_widget_id_@(id)").find(".widget-edit-mode").parent().append("<div class='alert alert-info'>@parts.Msg("plugin.widget_kit.edit_widget.already_open")</div>");
+    $("#maf_widget_widget_id_@(id)").find(".widget-edit-mode").detach();
+}
+</script>
+
+

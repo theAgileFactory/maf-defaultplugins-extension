@@ -1,0 +1,38 @@
+@(
+    id: Long, 
+    color: String, 
+    linkgen: framework.services.ext.api.ILinkGenerator
+)
+
+@import commons._
+@import framework_views.parts
+@import be.objectify.deadbolt.java.views.html._
+@import be.objectify.deadbolt.core.utils.TemplateUtils._
+
+@views.html.framework_views.dashboard.widget(id, parts.Msg.asString("plugin.widget_kit.quick_links.title"), color){
+
+    <div class="list-group">
+        @restrict(la(as(constants.IMafConstants.PORTFOLIO_ENTRY_SUBMISSION_PERMISSION))){
+            <a class="list-group-item" href="@controllers.core.routes.PortfolioEntryController.create().url">
+                <span class="fa fa-gift"></span> @parts.Msg("plugin.widget_kit.quick_links.new_initiative.label") &nbsp;<small><i>@parts.Msg("plugin.widget_kit.quick_links.new_initiative.description")</i></small>
+            </a>
+        }
+        @restrict(la(as(constants.IMafConstants.ROADMAP_DISPLAY_PERMISSION))){
+            <a class="list-group-item" href="@controllers.core.routes.RoadmapController.index().url">
+                <span class="fa fa-road"></span> @parts.Msg("plugin.widget_kit.quick_links.roadmap.label") &nbsp;<small><i>@parts.Msg("plugin.widget_kit.quick_links.roadmap.description")</i></small>
+            </a>
+        }
+        @restrict(la(as(constants.IMafConstants.REPORTING_VIEW_ALL_PERMISSION), as(constants.IMafConstants.REPORTING_VIEW_AS_VIEWER_PERMISSION))){
+            <a class="list-group-item" href="@controllers.core.routes.ReportingController.index().url">
+                <span class="fa fa-pie-chart"></span> @parts.Msg("plugin.widget_kit.quick_links.reporting.label") &nbsp;<small><i>@parts.Msg("plugin.widget_kit.quick_links.reporting.description")</i></small>
+            </a>
+        }
+        @restrict(la(as(constants.IMafConstants.SEARCH_PERMISSION))){
+            <a class="list-group-item" href="@controllers.core.routes.SearchController.index().url">
+                <span class="fa fa-search"></span> @parts.Msg("plugin.widget_kit.quick_links.search.label") &nbsp;<small><i>@parts.Msg("plugin.widget_kit.quick_links.search.description")</i></small>
+            </a>
+        }
+    </div>
+
+
+}

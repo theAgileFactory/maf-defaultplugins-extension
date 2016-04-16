@@ -1,0 +1,42 @@
+@(
+    id: Long, 
+    color: String, 
+    linkgen: framework.services.ext.api.ILinkGenerator,
+    configuration: services.plugins.system.widgetkit1.InitiativeKpiWidgetConfiguration
+)
+
+@import commons._
+@import framework_views.parts
+
+@containerId=@{
+    "initiative-kpi-widget-" + id
+}
+
+@views.html.framework_views.dashboard.widget(id, parts.Msg.asString("plugin.widget_kit.initiative_kpi.title"), color){
+
+    <div id ="@containerId">
+        @if(configuration != null) {
+            @initiative_kpi_display_fragment_widget(id, configuration)
+        } else {
+            <script>
+                var jqxhr = $.get('@linkgen.link("kpi-configure",id)', function(data) {
+                    $('#@(containerId)').html(data);
+                }).fail(function() {
+                    alert("Error");
+                });
+            </script>
+        }
+    </div>
+
+    <script type="text/javascript">
+        bizdock_widget_addEventListener(@id, function(event){
+            if(event.nature=="EDIT"){
+                var jqxhr = $.get('@linkgen.link("kpi-configure",id)', function(data) {
+                    $('#@(containerId)').html(data);
+                }).fail(function() {
+                    alert("Error");
+                });
+            }
+        });
+    </script>
+}

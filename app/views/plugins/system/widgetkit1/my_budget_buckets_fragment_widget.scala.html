@@ -1,0 +1,33 @@
+@(
+    id: Long,
+    linkgen: framework.services.ext.api.ILinkGenerator,
+    tab: String,
+    asOwnerTable: framework.utils.Table[utils.table.BudgetBucketListView],
+    asOwnerPagination: framework.utils.Pagination[models.finance.BudgetBucket],
+    asResponsibleTable: framework.utils.Table[utils.table.BudgetBucketListView],
+    asResponsiblePagination: framework.utils.Pagination[models.finance.BudgetBucket]
+)
+
+@import commons._
+@import framework_views.parts
+
+@containerId=@{
+    "my-budget-buckets-widget-" + id
+}
+
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" @if(tab.equals("as-owner")) {class="active"}><a href="#as-owner-@(id)" aria-controls="as-owner-@(id)" role="tab" data-toggle="tab">@parts.Msg("plugin.widget_kit.my_budget_buckets.as_owner")</a></li>
+    <li role="presentation" @if(tab.equals("as-responsible")) {class="active"}><a href="#as-responsible-@(id)" aria-controls="as-responsible-@(id)" role="tab" data-toggle="tab">@parts.Msg("plugin.widget_kit.my_budget_buckets.as_responsible")</a></li>
+</ul>
+
+<br/>
+
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane @if(tab.equals("as-owner")) {active}" id="as-owner-@(id)">
+        @parts.table.tableview_with_pagination_and_queryparams(asOwnerTable, asOwnerPagination, null, null, "tab=as-owner", true, containerId, linkgen.link("my-budget-buckets-paginate",id))
+    </div>
+    <div role="tabpanel" class="tab-pane @if(tab.equals("as-responsible")) {active}" id="as-responsible-@(id)">
+        @parts.table.tableview_with_pagination_and_queryparams(asResponsibleTable, asResponsiblePagination, null, null, "tab=as-responsible", true, containerId, linkgen.link("my-budget-buckets-paginate",id))
+    </div>
+</div>
+
