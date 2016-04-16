@@ -12,12 +12,13 @@
 		<name>The Agile Factory</name>
 		<url>http://www.the-agile-factory.com</url>
 	</organization>
-
+	
 	<scm>
-		<connection>scm:svn:file:///var/www/svn/lib/maf-defaultplugins-extension/trunk</connection>
-		<developerConnection>scm:svn:file:///var/www/svn/lib/maf-defaultplugins-extension/trunk</developerConnection>
-		<url>scm:svn:file:///var/www/svn/lib/maf-defaultplugins-extension/trunk</url>
-	</scm>
+		<connection>scm:git:https://github.com/theAgileFactory/maf-defaultplugins-extension.git</connection>
+		<developerConnection>scm:git:https://github.com/theAgileFactory/maf-defaultplugins-extension.git</developerConnection>
+		<url>scm:git:https://github.com/theAgileFactory/maf-defaultplugins-extension.git</url>
+	  <tag>HEAD</tag>
+    </scm>
 
 	<ciManagement>
 		<system>jenkins</system>
