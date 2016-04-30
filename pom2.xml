@@ -37,6 +37,11 @@
 			<name>typesafe-releases</name>
 			<url>http://repo.typesafe.com/typesafe/releases/</url>
 		</repository>
+		<repository>
+            <id>sonatype-snapshots</id>
+            <name>sonatype-snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository> 
 	</repositories>
 
 	<properties>
@@ -44,9 +49,9 @@
 		<java.source>1.8</java.source>
 		<java.target>1.8</java.target>
 		<scala.version>2.11</scala.version>
-		<lib.app-framework.version>12.1.0</lib.app-framework.version>
-		<maf.maf-desktop-datamodel.version>12.1.0</maf.maf-desktop-datamodel.version>
-		<maf-desktop-app.version>12.1.2</maf-desktop-app.version>
+		<lib.app-framework.version>12.1.1-SNAPSHOT</lib.app-framework.version>
+		<maf.maf-desktop-datamodel.version>12.1.1-SNAPSHOT</maf.maf-desktop-datamodel.version>
+		<maf-desktop-app.version>12.1.4-SNAPSHOT</maf-desktop-app.version>
 		<!-- Plugin properties -->
 		<maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
 		<maven-resources-plugin.version>2.6</maven-resources-plugin.version>
@@ -196,16 +201,12 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
 				<version>1.5</version>
-				<executions>
-					<execution>
-						<id>sign-artifacts</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
+			<plugin>
+		        <groupId>org.codehaus.mojo</groupId>
+		        <artifactId>versions-maven-plugin</artifactId>
+		        <version>2.2</version>
+		    </plugin>
 		</plugins>
 	</build>
 </project>
