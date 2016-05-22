@@ -156,16 +156,12 @@
 						<phase>package</phase>
 						<configuration>
 							<target>
-								<zip
-									destfile="${project.build.directory}/${project.build.finalName}.temp">
-									<zipgroupfileset dir="${project.build.directory}"
-										includes="${project.build.finalName}.jar" />
-									<zipgroupfileset dir="${project.build.directory}"
-										includes="*-assets.jar" />
+								<unzip src="${project.build.directory}/${project.build.finalName}.zip" dest="${project.build.directory}" />
+								<zip destfile="${project.build.directory}/${project.build.finalName}.temp">
+									<zipgroupfileset dir="${project.build.directory}" includes="${project.build.finalName}.jar" />
+									<zipgroupfileset dir="${project.build.directory}/${project.artifactId}-dist/lib/" includes="*-assets.jar" />
 								</zip>
-								<move
-									file="${project.build.directory}/${project.build.finalName}.temp"
-									tofile="${project.build.directory}/${project.build.finalName}.jar" />
+								<move file="${project.build.directory}/${project.build.finalName}.temp" tofile="${project.build.directory}/${project.build.finalName}.jar" />
 							</target>
 						</configuration>
 						<goals>
