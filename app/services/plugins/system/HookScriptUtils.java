@@ -1,5 +1,6 @@
 package services.plugins.system;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -9,15 +10,19 @@ import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Expr;
 import com.avaje.ebean.Expression;
 
+import dao.pmo.PortfolioEntryDao;
+import dao.pmo.PortfolioEntryEventDao;
 import framework.commons.DataType;
 import framework.commons.message.EventMessage;
 import framework.commons.message.EventMessage.MessageType;
+import framework.services.custom_attribute.ICustomAttributeManagerService;
+import framework.services.custom_attribute.ICustomAttributeManagerService.CustomAttributeValueObject;
 import framework.services.plugins.api.IPluginContext;
 import framework.services.plugins.api.IPluginContext.LogLevel;
 import framework.services.plugins.api.PluginException;
-import framework.services.custom_attribute.ICustomAttributeManagerService;
-import framework.services.custom_attribute.ICustomAttributeManagerService.CustomAttributeValueObject;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
+import models.pmo.PortfolioEntryEvent;
+import play.Logger;
 import play.libs.F.Callback;
 import play.libs.F.Promise;
 import play.libs.ws.WSClient;
@@ -32,6 +37,8 @@ import play.libs.ws.WSResponse;
  * @author Pierre-Yves Cloux
  */
 public class HookScriptUtils {
+	private static Logger.ALogger log = Logger.of(HookScriptUtils.class);
+	
     public enum EventType {
         CREATE, UPDATE, DELETE;
     }
@@ -48,6 +55,18 @@ public class HookScriptUtils {
         this.customAttributeManagerService = customAttributeManagerService;
         this.hookStateObject=new HookStateObject(pluginContext);
     }
+    
+    /**
+     * Wait the number of seconds
+     * @param seconds a time in seconds
+     */
+    public void sleep(int seconds){
+    	try {
+			Thread.sleep(seconds*1000);
+		} catch (InterruptedException e) {
+			log.error("Thread error",e);
+		}
+    }
 
     /**
      * Return the object associated with the specified key
@@ -61,8 +80,14 @@ public class HookScriptUtils {
      */
     public Object getObjectFromId(String dataTypeName, long objectId) throws HookScriptException {
         try {
+        	if(log.isDebugEnabled()){
+        		log.debug("Looking for dataType "+dataTypeName+" with id "+objectId);
+        	}
             Class<?> dataTypeClass = getDataModelClass(dataTypeName);
-            return Ebean.find(dataTypeClass, objectId);
+        	if(log.isDebugEnabled()){
+        		log.debug("Found class name "+dataTypeClass);
+        	}
+            return Ebean.getReference(dataTypeClass, objectId);
         } catch (Exception e) {
             throw new HookScriptException("Exception while looking for object " + dataTypeName + " for the id " + objectId);
         }
@@ -100,6 +125,31 @@ public class HookScriptUtils {
         } catch (Exception e) {
             throw new HookScriptException("Exception while looking for custom attributes from object " + dataTypeName + " for the id " + objectId);
         }
+    }
+    
+
+    /**
+     * Add an event to the specified portfolio entry
+     * @param portfolioEntryId a portfolio entry Id
+     * @param portfolioEntryEventTypeId the type of the portfolio entry event
+     * @param eventMessage an event message to be added to the entry
+     * @param jsCreationDate a javascript creation date
+     */
+    public void addPortfolioEntryEvent(Long portfolioEntryId, Long portfolioEntryEventTypeId, String eventMessage, Object jsCreationDate){
+    	PortfolioEntryEvent event=new PortfolioEntryEvent();
+    	if(jsCreationDate!=null){
+	    	ScriptObjectMirror jsDate = (ScriptObjectMirror) jsCreationDate;
+			long timestampLocalTime = ((Double) jsDate.callMember("getTime")).longValue(); 
+			//js date returns timestamp in local time so you need to adjust it...
+			int timezoneOffsetMinutes = ((Double)  jsDate.callMember("getTimezoneOffset")).intValue();
+	    	event.creationDate=new Date(timestampLocalTime + timezoneOffsetMinutes * 60 * 1000);
+    	}else{
+    		event.creationDate=new Date();
+    	}
+    	event.portfolioEntry=PortfolioEntryDao.getPEById(portfolioEntryId);
+    	event.portfolioEntryEventType=PortfolioEntryEventDao.getPEEventTypeById(portfolioEntryEventTypeId);
+    	event.message=eventMessage;
+    	event.save();
     }
     
 
@@ -182,12 +232,49 @@ public class HookScriptUtils {
     }
 
     /**
-     * Return a context which enable the exchange of data between various script but also
-     * with other plugins
-     * @return a context
+     * Store some data into a persistent storage which is shared 
+     * between the plugins.<br/>
+     * If the record already exists it will be overwritten.
+     * 
+     * @param key a unique key identifying the record
+     * @param stateObject
+     *            an object which must be {@link Serializable}
      */
-    public Map<String, Object> getSharedContext() {
-        return getPluginContext().getSharedContext();
+    public void setSharedRecord(String key, Object stateObject) throws HookScriptException{
+    	try {
+			getPluginContext().setSharedRecord(key, stateObject);
+		} catch (PluginException e) {
+			throw new HookScriptException("Error while saving some data in the shared storage",e);
+		}
+    }
+
+    /**
+     * Retrieve the data associated with the specified key.
+     * If the record is not found, the method returns null.
+     * 
+     * @param key a unique key identifying the record
+     * @return the state object
+     * @throws PluginException 
+     */
+    public Object getSharedRecord(String key) throws HookScriptException{
+    	try {
+			return getPluginContext().getSharedRecord(key);
+		} catch (PluginException e) {
+			throw new HookScriptException("Error while getting some data from the shared storage",e);
+		}
+    }
+    
+    /**
+     * Delete the object associated with the specified key
+     * 
+     * @param key a unique key identifying the record
+     */
+    public void deleteSharedRecord(String key) throws HookScriptException{
+    	try {
+			getPluginContext().deleteSharedRecord(key);
+		} catch (PluginException e) {
+			throw new HookScriptException("Error while deleting some data from the shared storage",e);
+		}
     }
 
     private void logMessage(boolean isError, String objectType, long objectId, String eventType, String message) {

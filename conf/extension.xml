@@ -582,6 +582,7 @@ function notify(objectType, objectId, eventType, modifiedAttributes){
 		<supported-data-type>WorkOrder</supported-data-type>
 		<supported-data-type>User</supported-data-type>
 		<supported-data-type>SystemLevelRoleType</supported-data-type>
+		<supported-data-type>LifeCycleMilestoneInstance</supported-data-type>
 	</plugin>
 	<plugin>
 		<identifier>genint1</identifier>
