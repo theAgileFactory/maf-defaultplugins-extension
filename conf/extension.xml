@@ -688,6 +688,20 @@ function perform(date){
             <class>services.plugins.system.widgetkit1.MyInitiativesWidgetController</class>
             <hasEditMode>false</hasEditMode>
         </widget>
+		<widget>
+            <identifier>WG61</identifier>
+            <name>plugin.widget_kit.my_initiatives_as_manager.title</name>
+            <description>plugin.widget_kit.my_initiatives_as_manager.description</description>
+            <class>services.plugins.system.widgetkit1.MyInitiativesAsManagerWidgetController</class>
+            <hasEditMode>false</hasEditMode>
+        </widget>
+		<widget>
+            <identifier>WG62</identifier>
+            <name>plugin.widget_kit.my_initiatives_as_stakeholder.title</name>
+            <description>plugin.widget_kit.my_initiatives_as_stakeholder.description</description>
+            <class>services.plugins.system.widgetkit1.MyInitiativesAsStakeholderWidgetController</class>
+            <hasEditMode>false</hasEditMode>
+        </widget>
         <widget>
             <identifier>WG7</identifier>
             <name>plugin.widget_kit.my_portfolios.title</name>
@@ -721,6 +735,13 @@ function perform(date){
             <name>plugin.widget_kit.timesheets_subordinates.title</name>
             <description>plugin.widget_kit.timesheets_subordinates.description</description>
             <class>services.plugins.system.widgetkit1.TimesheetsSubordinatesWidgetController</class>
+            <hasEditMode>false</hasEditMode>
+        </widget>
+		<widget>
+            <identifier>WG12</identifier>
+            <name>plugin.widget_kit.late_planned_milestones_widget.title</name>
+            <description>plugin.widget_kit.late_planned_milestones_widget.description</description>
+            <class>services.plugins.system.widgetkit1.LatePlannedMilestonesController</class>
             <hasEditMode>false</hasEditMode>
         </widget>
 	</plugin>
@@ -807,7 +828,7 @@ plugin.jira.portfolio_entry.index.configuration.defects.label=Defects
 plugin.jira.portfolio_entry.index.projects.title=Related Jira projects
 
 #----------------------
-# plugin / widget kit
+# plugin / widget kit 
 #----------------------
 
 plugin.widget_kit.edit_widget.already_open=Another widget is already opened in configuration mode: Please configure it before editing this one.
@@ -837,6 +858,10 @@ plugin.widget_kit.quick_links.search.description=Find easily and quickly what yo
 plugin.widget_kit.no_actor.help=Your BizDock user account is not associated with an employee. Consequently, this widget is not available.
 plugin.widget_kit.my_initiatives.title=My active initiatives
 plugin.widget_kit.my_initiatives.description=Displays the active initiatives (as manager and as stakeholder) of the current sign-in user.
+plugin.widget_kit.my_initiatives_as_manager.title=My active initiatives as manager
+plugin.widget_kit.my_initiatives_as_manager.description=Displays the active initiatives (as manager) of the current sign-in user.
+plugin.widget_kit.my_initiatives_as_stakeholder.title=My active initiatives as stakeholder
+plugin.widget_kit.my_initiatives_as_stakeholder.description=Displays the active initiatives (as stakeholder) of the current sign-in user.
 plugin.widget_kit.my_initiatives.as_manager=As manager
 plugin.widget_kit.my_initiatives.as_stakeholder=As stakeholder
 plugin.widget_kit.my_portfolios.title=My active portfolios
@@ -855,6 +880,8 @@ plugin.widget_kit.timesheets_subordinates.title=Timesheets of subordinates
 plugin.widget_kit.timesheets_subordinates.description=Displays the timesheets to review and the late timesheets of the subordinates of the current sign-in user.
 plugin.widget_kit.timesheets_subordinates.late=Late timesheets
 plugin.widget_kit.timesheets_subordinates.submitted=Timesheets to review
+plugin.widget_kit.late_planned_milestones_widget.title=Late planned milestones
+plugin.widget_kit.late_planned_milestones_widget.description=Displays Late planned milestones.
 plugin.widget_kit.initiative_kpi.title=Initiative's KPI
 plugin.widget_kit.initiative_kpi.description=Displays a specific KPI for a selected initiative.
 plugin.widget_kit.initiative_kpi.form.kpi_uid=KPI
@@ -947,7 +974,7 @@ plugin.jira.portfolio_entry.index.configuration.defects.label=Mängel
 plugin.jira.portfolio_entry.index.projects.title=Zugehörige Jira Projekte
 
 #----------------------
-# plugin / widget kit
+# plugin / widget kit  
 #----------------------
 
 plugin.widget_kit.edit_widget.already_open=Ein anderes Widget wird bereits bearbeitet. Speichern Sie dies bevor Sie dieses bearbeiten.
@@ -979,6 +1006,10 @@ plugin.widget_kit.my_initiatives.title=Meine Initiativen
 plugin.widget_kit.my_initiatives.description=Ihre Initiativen anzeigen (als Manager und als Projektbeteiligter).
 plugin.widget_kit.my_initiatives.as_manager=Als Manager
 plugin.widget_kit.my_initiatives.as_stakeholder=Als Projektbeteiligter
+plugin.widget_kit.my_initiatives_as_manager.title=My active initiatives as manager
+plugin.widget_kit.my_initiatives_as_manager.description=Displays the active initiatives (as manager) of the current sign-in user.
+plugin.widget_kit.my_initiatives_as_stakeholder.title=My active initiatives as manager
+plugin.widget_kit.my_initiatives_as_stakeholder.description=Displays the active initiatives (as stakeholder) of the current sign-in user.
 plugin.widget_kit.my_portfolios.title=Meine Portfolio
 plugin.widget_kit.my_portfolios.description=Ihre Portfolios anzeigen (als Manager und als Projektbeteiligter).
 plugin.widget_kit.my_portfolios.as_manager=Als Manager
@@ -995,6 +1026,8 @@ plugin.widget_kit.timesheets_subordinates.title=Zeiterfassung der Mitarbeiter
 plugin.widget_kit.timesheets_subordinates.description=Zeiterfassungen genehmigen und verspätete anfordern.
 plugin.widget_kit.timesheets_subordinates.late=Erfassung verspätet
 plugin.widget_kit.timesheets_subordinates.submitted=Zeiterfassung genehmigen
+plugin.widget_kit.late_planned_milestones_widget.title=Meilenstein ​​Verzögerungen
+plugin.widget_kit.late_planned_milestones_widget.description=Meilenstein ​​Verzögerungen.
 plugin.widget_kit.initiative_kpi.title=KPI einer Initiative
 plugin.widget_kit.initiative_kpi.description=Anzeige eines KPI einer Initiative.
 plugin.widget_kit.initiative_kpi.form.kpi_uid=KPI
@@ -1085,7 +1118,7 @@ plugin.jira.portfolio_entry.index.configuration.defects.label=Anomalies
 plugin.jira.portfolio_entry.index.projects.title=Projets Jira liés
 
 #----------------------
-# plugin / widget kit
+# plugin / widget kit 
 #----------------------
 
 plugin.widget_kit.edit_widget.already_open=Un autre widget est déjà ouvert en mode configuration: Veuillez le configurer avant de modifier celui-ci
@@ -1117,6 +1150,10 @@ plugin.widget_kit.my_initiatives.title=Mes initiatives actives
 plugin.widget_kit.my_initiatives.description=Affiche les initiatives actives (en tant que responsable et intervenant) de l'utilisateur connecté.
 plugin.widget_kit.my_initiatives.as_manager=En tant que responsable
 plugin.widget_kit.my_initiatives.as_stakeholder=En tant qu'intervenant
+plugin.widget_kit.my_initiatives_as_manager.title=Mes initiatives actives en tant que responsable
+plugin.widget_kit.my_initiatives_as_manager.description=Affiche les initiatives actives (en tant que responsable) de l'utilisateur connecté.
+plugin.widget_kit.my_initiatives_as_stakeholder.title=Mes initiatives actives en tant qu'intervenant
+plugin.widget_kit.my_initiatives_as_stakeholder.description=Affiche les initiatives actives (en tant qu'intervenant) de l'utilisateur connecté.
 plugin.widget_kit.my_portfolios.title=Mes portefeuilles actifs
 plugin.widget_kit.my_portfolios.description=Affiche les portefeuilles actifs (en tant que responsable et intervenant) de l'utilisateur connecté.
 plugin.widget_kit.my_initiatives.as_manager=En tant que responsable
@@ -1133,6 +1170,8 @@ plugin.widget_kit.timesheets_subordinates.title=Feuilles de temps des subordonn�
 plugin.widget_kit.timesheets_subordinates.description=Affiche les feuilles de temps à approuver et les feuilles de temps en retard des subordonnés de l'utilisateur connecté.
 plugin.widget_kit.timesheets_subordinates.late=Feuilles de temps en retard
 plugin.widget_kit.timesheets_subordinates.submitted=Feuilles de temps à approuver
+plugin.widget_kit.late_planned_milestones_widget.title=Jalons en retard
+plugin.widget_kit.late_planned_milestones_widget.description=Affiche les jalons en retard.
 plugin.widget_kit.initiative_kpi.title=KPI d'initiative
 plugin.widget_kit.initiative_kpi.description=Affiche un KPI spécifique pour une initiative choisie.
 plugin.widget_kit.initiative_kpi.form.kpi_uid=KPI
