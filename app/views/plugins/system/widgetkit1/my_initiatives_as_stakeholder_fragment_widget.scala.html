@@ -1,0 +1,26 @@
+@(
+    id: Long,
+    linkgen: framework.services.ext.api.ILinkGenerator,
+    tab: String,
+    asStakeholderTable: framework.utils.Table[utils.table.PortfolioEntryListView],
+    asStakeholderPagination: framework.utils.Pagination[models.pmo.PortfolioEntry]
+)
+
+@import commons._
+@import framework_views.parts
+
+@containerId=@{
+    "my-initiatives-widget-" + id
+}
+
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" @if(tab.equals("as-stakeholder")) {class="active"}><a href="#as-stakeholder-@(id)" aria-controls="as-stakeholder-@(id)" role="tab" data-toggle="tab">@parts.Msg("plugin.widget_kit.my_initiatives.as_stakeholder")</a></li>
+</ul>
+
+<br/>
+
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane @if(tab.equals("as-stakeholder")) {active}" id="as-stakeholder-@(id)">
+        @parts.table.tableview_with_pagination_and_queryparams(asStakeholderTable, asStakeholderPagination, null, null, "tab=as-stakeholder", true, containerId, linkgen.link("my-initiatives-paginate",id))
+    </div>
+</div>

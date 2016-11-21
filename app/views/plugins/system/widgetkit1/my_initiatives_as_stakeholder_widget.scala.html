@@ -1,0 +1,23 @@
+@(
+    id: Long,
+    color: String,
+    linkgen: framework.services.ext.api.ILinkGenerator,
+    tab: String,
+    asStakeholderTable: framework.utils.Table[utils.table.PortfolioEntryListView],
+    asStakeholderPagination: framework.utils.Pagination[models.pmo.PortfolioEntry]
+)
+
+@import commons._
+@import framework_views.parts
+
+@containerId=@{
+    "my-initiatives-widget-" + id
+}
+
+@views.html.framework_views.dashboard.widget(id, parts.Msg.asString("plugin.widget_kit.my_initiatives_as_stakeholder.title"), color){
+
+    <div id="@containerId">
+        @my_initiatives_as_stakeholder_fragment_widget(id, linkgen, tab, asStakeholderTable, asStakeholderPagination)
+    </div>
+
+}

@@ -79,6 +79,8 @@ public class TimesheetLoadableObject implements ILoadableObject {
     private String logDate;
     
     @Required
+    private String archived;
+    @Required
     private Double hours;
     
     @MaxLength(value = IModelConstants.MEDIUM_STRING, message = "packageRefId is too long " + IModelConstants.MEDIUM_STRING + " chars max")
@@ -299,6 +301,9 @@ public class TimesheetLoadableObject implements ILoadableObject {
 
     public String getEmployeeRefId() {
         return employeeRefId;
+    }
+    public String geArchived() {
+        return archived;
     }
 
     public void setEmployeeRefId(String employeeRefId) {
