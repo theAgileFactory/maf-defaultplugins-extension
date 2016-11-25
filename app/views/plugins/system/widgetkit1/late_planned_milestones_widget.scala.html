@@ -1,18 +1,23 @@
 @(
     id: Long, 
     color: String, 
-    linkgen: framework.services.ext.api.ILinkGenerator
+    linkgen: framework.services.ext.api.ILinkGenerator,
+	tab: String,
+	asManagerTable: framework.utils.Table[utils.table.PortfolioMilestoneListView],
+	asManagerPagination: framework.utils.Pagination[models.governance.PlannedLifeCycleMilestoneInstance]
 )
 
 @import commons._
 @import framework_views.parts
 
+@containerId=@{
+    "late_planned_milestones-widget-" + id
+}
+
 @views.html.framework_views.dashboard.widget(id, parts.Msg.asString("plugin.widget_kit.late_planned_milestones_widget.title"), color){
 
-    <div class="list-group">
-       
-      
+    <div id="@containerId">
+        @late_planned_milestones_fragment_widget(id, linkgen, tab, asManagerTable, asManagerPagination)
     </div>
-
 
 }

@@ -1,0 +1,26 @@
+@(
+    id: Long, 
+    linkgen: framework.services.ext.api.ILinkGenerator,
+	tab: String,
+	asManagerTable: framework.utils.Table[utils.table.PortfolioMilestoneListView],
+	asManagerPagination: framework.utils.Pagination[models.governance.PlannedLifeCycleMilestoneInstance]
+)
+
+@import commons._
+@import framework_views.parts
+
+@containerId=@{
+    "late_planned_milestones-widget-" + id
+}
+
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" ><a href="#as-manager-@(id)" aria-controls="as-manager-@(id)" role="tab" data-toggle="tab">@parts.Msg("plugin.widget_kit.my_initiatives.as_manager")</a></li>
+</ul>
+
+<br/>
+
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane @if(tab.equals("as-manager")) {active}" id="as-manager-@(id)">
+        @parts.table.tableview_with_pagination_and_queryparams(asManagerTable, asManagerPagination, null, null, "tab=as-manager", true, containerId, linkgen.link("my-paginate",id))
+    </div>
+</div>
