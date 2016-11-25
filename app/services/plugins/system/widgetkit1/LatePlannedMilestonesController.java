@@ -200,13 +200,19 @@ public class LatePlannedMilestonesController extends WidgetController {
     			
     	// get the late milestones for those portfolios
         List<PortfolioMilestoneListView> portfolioMilestoneListView = new ArrayList<PortfolioMilestoneListView>();
+        List<Long> myList = new ArrayList<>();
              
         for(Portfolio portfolio : portfolioList)
         {
         
 	        for (PlannedLifeCycleMilestoneInstance plannedMilestoneInstance : LifeCyclePlanningDao
-	                .getPlannedLCMilestoneInstanceNotApprovedAsListOfPortfolio(portfolio.id)) {
-	            portfolioMilestoneListView.add(new PortfolioMilestoneListView(plannedMilestoneInstance));
+	                .getPlannedLCMilestoneInstanceNotApprovedAsListOfPortfolio(portfolio.id)) 
+	        {
+	        	if (!myList.contains(plannedMilestoneInstance.id))
+	        	{
+	        		portfolioMilestoneListView.add(new PortfolioMilestoneListView(plannedMilestoneInstance));
+	        		myList.add(plannedMilestoneInstance.id);
+	        	}
 	        }     
         }    	
                 
