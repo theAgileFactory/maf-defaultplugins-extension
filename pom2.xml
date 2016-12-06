@@ -56,7 +56,7 @@
 		<scala.version>2.11</scala.version>
 		<lib.app-framework.version>14.0.0</lib.app-framework.version>
 		<maf.maf-desktop-datamodel.version>14.0.0</maf.maf-desktop-datamodel.version>
-		<maf-desktop-app.version>14.0.1</maf-desktop-app.version>
+		<maf-desktop-app.version>14.0.2</maf-desktop-app.version>
 		<!-- Plugin properties -->
 		<maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
 		<maven-resources-plugin.version>2.6</maven-resources-plugin.version>
