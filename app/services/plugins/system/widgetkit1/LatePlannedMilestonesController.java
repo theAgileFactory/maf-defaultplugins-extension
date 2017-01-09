@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import com.avaje.ebean.ExpressionList;
-
 import framework.security.ISecurityService;
 import framework.services.account.AccountManagementException;
 import framework.services.account.IPreferenceManagerPlugin;
@@ -23,8 +21,6 @@ import framework.utils.Table;
 import models.framework_models.plugin.DashboardWidgetColor;
 import models.governance.PlannedLifeCycleMilestoneInstance;
 import models.pmo.Actor;
-import models.pmo.Portfolio;
-import models.pmo.PortfolioEntry;
 import play.Configuration;
 import play.Logger;
 import play.Play;
@@ -33,13 +29,11 @@ import play.libs.F.Promise;
 import play.mvc.Result;
 
 import services.tableprovider.ITableProvider;
-import utils.table.PortfolioEntryListView;
+
 import utils.table.PortfolioMilestoneListView;
-import controllers.core.PortfolioController;
 import dao.governance.LifeCyclePlanningDao;
 import dao.pmo.ActorDao;
-import dao.pmo.PortfolioDao;
-import dao.pmo.PortfolioEntryDao;
+
 /**
  * Widget which displays late planned milestones.
  * 
@@ -160,7 +154,7 @@ public class LatePlannedMilestonesController extends WidgetController {
      */
     private MyPageData getTables(Long actorId, Integer asManagerPage) {
     	
-    	List<PortfolioMilestoneListView> portfolioMilestoneListView = getportfolioMilestoneList();
+    	List<PortfolioMilestoneListView> portfolioMilestoneListView = getPortfolioMilestoneList();
 		
 		Pagination<PlannedLifeCycleMilestoneInstance> asManagerPagination  =new Pagination<>(portfolioMilestoneListView.size(), 5, Play.application().configuration().getInt("maf.number_page_links"));
 		asManagerPagination.setPageQueryName("asManagerPage");
@@ -177,7 +171,7 @@ public class LatePlannedMilestonesController extends WidgetController {
      * 
      * @return
      */
-    private List<PortfolioMilestoneListView> getportfolioMilestoneList()
+    private List<PortfolioMilestoneListView> getPortfolioMilestoneList()
     {
     	 // get the current actor
         IUserAccount userAccount = null;
@@ -194,27 +188,18 @@ public class LatePlannedMilestonesController extends WidgetController {
         
 		if (actor != null)
 			actorId = actor.id;
-		
-    	// Get all active portfolios for which an actor is the manager
-    	List<Portfolio> portfolioList = PortfolioDao.findPortfolio.where().eq("deleted", false).eq("manager.id", actorId).findList();
-    			
-    	// get the late milestones for those portfolios
+		  	
         List<PortfolioMilestoneListView> portfolioMilestoneListView = new ArrayList<PortfolioMilestoneListView>();
         List<Long> myList = new ArrayList<>();
-             
-        for(Portfolio portfolio : portfolioList)
+          
+        for (PlannedLifeCycleMilestoneInstance plmi : LifeCyclePlanningDao.getPlannedLCMilestoneInstanceNotApprovedAsListOfManager(actorId)) 
         {
-        
-	        for (PlannedLifeCycleMilestoneInstance plannedMilestoneInstance : LifeCyclePlanningDao
-	                .getPlannedLCMilestoneInstanceNotApprovedAsListOfPortfolio(portfolio.id)) 
-	        {
-	        	if (!myList.contains(plannedMilestoneInstance.id))
-	        	{
-	        		portfolioMilestoneListView.add(new PortfolioMilestoneListView(plannedMilestoneInstance));
-	        		myList.add(plannedMilestoneInstance.id);
-	        	}
-	        }     
-        }    	
+        	if (!myList.contains(plmi.id))
+        	{
+        		portfolioMilestoneListView.add(new PortfolioMilestoneListView(plmi));
+        		myList.add(plmi.id);
+        	}
+        }   
                 
         return portfolioMilestoneListView;
     }
