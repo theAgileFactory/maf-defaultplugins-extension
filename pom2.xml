@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.agifac.lib</groupId>
 	<artifactId>maf-defaultplugins-extension</artifactId>
-	<version>14.1.0-SNAPSHOT</version>
+	<version>14.1.0</version>
 	<name>BizDock default widgets and plugins</name>
 	<description>This module contains the default widgets and plugins for BizDock</description> 
 	<packaging>play2</packaging>

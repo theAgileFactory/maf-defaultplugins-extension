@@ -785,6 +785,30 @@ public class HookScriptUtils {
         }
 
         /**
+         * Lesser Than - property lesser than the given value.
+         *
+         * @param propertyName
+         * @param value
+         * @return
+         */
+        public HookDataQueryExpression lt(String propertyName, Object value) {
+            this.expression = Expr.lt(propertyName, convertFromScriptObject(value));
+            return this;
+        }
+
+        /**
+         * Lesser Than or Equal to - property greater than or equal to the given value.
+         *
+         * @param propertyName
+         * @param value
+         * @return
+         */
+        public HookDataQueryExpression le(String propertyName, Object value) {
+            this.expression = Expr.le(propertyName, convertFromScriptObject(value));
+            return this;
+        }
+
+        /**
          * Like - property like value where the value contains the SQL wild card
          * characters % (percentage) and _ (underscore).
          *
