@@ -31,6 +31,7 @@ script:
   ~/.m2/settings.xml
 after_success:
 - .travis/deploy.sh
+- .travis/build_dependents.sh
 after_script:
 - rm ~/.gnupg/secring.gpg
 - rm ~/.gnupg/pubring.gpg
