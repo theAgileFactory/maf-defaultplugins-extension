@@ -8,7 +8,7 @@
 		<description>plugin.jira.descriptor.description</description>
 		<clazz>services.plugins.atlassian.jira.jira1.JiraPluginRunner</clazz>
 		<version>1.0</version>
-		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:jira-plugin</vendor-url>
+		<vendor-url>https://help-online.bizdock.io/doku.php?id=admin-guide:plugins:jira-plugin</vendor-url>
 		<multi-instance>true</multi-instance>
 		<event-interface in="false" out="true"/>
 		<configuration-block identifier="config" type="PROPERTIES">
@@ -63,7 +63,7 @@ pe.load.frequency=1440
 		<description>Jenkins is a leading open source continuous integration software</description>
 		<clazz>services.plugins.jenkins.jenk1.JenkinsPluginRunner</clazz>
 		<version>1.0</version>
-		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:jenkins-plugin-integrated</vendor-url>
+		<vendor-url>https://help-online.bizdock.io/doku.php?id=admin-guide:plugins:jenkins-plugin-integrated</vendor-url>
 		<multi-instance>false</multi-instance>
 		<event-interface in="false" out="false"/>
 		<configuration-block identifier="config" type="PROPERTIES">
@@ -81,7 +81,7 @@ jenkins.gui.url=/jenkins
 		<description>Nexus is a software asset repository management software</description>
 		<clazz>services.plugins.nexus.nex1.NexusPluginRunner</clazz>
 		<version>1.0</version>
-		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:nexus-plugin-integrated</vendor-url>
+		<vendor-url>https://help-online.bizdock.io/doku.php?id=admin-guide:plugins:nexus-plugin-integrated</vendor-url>
 		<multi-instance>false</multi-instance>
 		<event-interface in="false" out="false"/>
 		<configuration-block identifier="config" type="PROPERTIES">
@@ -99,7 +99,7 @@ nexus.gui.url=/nexus
 		<description>The DevDock Redmine plugin deal with the synchronization of DevDock Redmine with BizDock.</description>
 		<clazz>services.plugins.redmine.redm1.RedminePluginRunner</clazz>
 		<version>1.0</version>
-		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:redmine-plugin-integrated</vendor-url>
+		<vendor-url>https://help-online.bizdock.io/doku.php?id=admin-guide:plugins:redmine-plugin-integrated</vendor-url>
 		<multi-instance>false</multi-instance>
 		<event-interface in="false" out="true"/>
 		<configuration-block identifier="config" type="PROPERTIES">
@@ -163,7 +163,7 @@ pe.load.frequency=1440
 		<description>The Redmine plugin deal with the synchronization of Redmine with BizDock.</description>
 		<clazz>services.plugins.redmine.redm2.RedminePluginRunner</clazz>
 		<version>1.0</version>
-		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:redmine-plugin</vendor-url>
+		<vendor-url>https://help-online.bizdock.io/doku.php?id=admin-guide:plugins:redmine-plugin</vendor-url>
 		<multi-instance>true</multi-instance>
 		<event-interface in="false" out="true"/>
 		<configuration-block identifier="config" type="PROPERTIES">
@@ -226,7 +226,7 @@ pe.load.frequency=1440
 		<description>Subversion is a source code and configuration management software</description>
 		<clazz>services.plugins.subversion.subv1.SubversionPluginRunner</clazz>
 		<version>1.0</version>
-		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:svn-plugin-integrated</vendor-url>
+		<vendor-url>https://help-online.bizdock.io/doku.php?id=admin-guide:plugins:svn-plugin-integrated</vendor-url>
 		<multi-instance>false</multi-instance>
 		<event-interface in="false" out="true"/>
 		<configuration-block identifier="config" type="PROPERTIES">
@@ -253,7 +253,7 @@ subversion.delivery.manager.ldap.group=dm
 		<description>This plugin provides the ability to load BizDock employees from a CSV file with various options</description>
 		<clazz>services.plugins.system.actorsload1.ActorLoaderPluginRunner</clazz>
 		<version>2.0</version>
-		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins:employee-loader-plugin</vendor-url>
+		<vendor-url>https://help-online.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins:employee-loader-plugin</vendor-url>
 		<multi-instance>true</multi-instance>
 		<event-interface in="false" out="true"/>
 		<configuration-block identifier="main" type="PROPERTIES">
@@ -311,7 +311,7 @@ ignoreRecord=false;
 		<description>This plugin provides the ability to load timesheets from an external system</description>
 		<clazz>services.plugins.system.timesheet1.TimesheetLoaderPluginRunner</clazz>
 		<version>1.0</version>
-		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins:timesheet-loader-plugin</vendor-url>
+		<vendor-url>https://help-online.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins:timesheet-loader-plugin</vendor-url>
 		<multi-instance>true</multi-instance>
 		<event-interface in="false" out="true"/>
 		<configuration-block identifier="main" type="PROPERTIES">
@@ -357,7 +357,7 @@ ignoreRecord=false;
 		<description>This plugin provides the ability to load BizDock org units from a CSV file with various options</description>
 		<clazz>services.plugins.system.orgunitsload1.OrgUnitLoaderPluginRunner</clazz>
 		<version>1.0</version>
-		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins:org-unit-loader-plugin</vendor-url>
+		<vendor-url>https://help-online.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins:org-unit-loader-plugin</vendor-url>
 		<multi-instance>true</multi-instance>
 		<event-interface in="false" out="true"/>
 		<configuration-block identifier="main" type="PROPERTIES">
@@ -407,7 +407,7 @@ ignoreRecord=false;
 		<description>Integrate you financial ERP solution with BizDock (load POs and budgets).</description>
 		<clazz>services.plugins.system.finance1.FinanceErpIntegrationPluginRunner</clazz>
 		<version>1.0</version>
-		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins:financial-integration-plugin</vendor-url>
+		<vendor-url>https://help-online.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins:financial-integration-plugin</vendor-url>
 		<multi-instance>true</multi-instance>
 		<event-interface in="false" out="true"/>
 		<configuration-block identifier="main" type="PROPERTIES">
@@ -475,7 +475,7 @@ ignoreRecord=false;
 		<description>The event handler plugin is a BizDock plugin which trigger some actions (mail, web service...) when a BizDock data is created/changed/deleted.</description>
 		<clazz>services.plugins.system.notification1.EventNotificationPluginRunner</clazz>
 		<version>1.0</version>
-		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins:bizdock-event-handler</vendor-url>
+		<vendor-url>https://help-online.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins:bizdock-event-handler</vendor-url>
 		<multi-instance>true</multi-instance>
 		<event-interface in="false" out="true"/>
 		<configuration-block identifier="hook_script" type="JAVASCRIPT">
@@ -591,7 +591,7 @@ function notify(objectType, objectId, eventType, modifiedAttributes){
 		<description>Light integration plugin based on simple URL</description>
 		<clazz>services.plugins.system.genint1.GenericExternalIntegrationPluginRunner</clazz>
 		<version>1.0</version>
-		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins:bizdock-url-integration</vendor-url>
+		<vendor-url>https://help-online.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins:bizdock-url-integration</vendor-url>
 		<multi-instance>true</multi-instance>
 		<event-interface in="false" out="false"/>
 		<configuration-block identifier="main" type="PROPERTIES">
@@ -605,13 +605,71 @@ external.service.label=
 			</default>
 		</configuration-block>
 	</plugin>
+		<plugin>
+		<identifier>workOrderLoad</identifier>
+		<name>BizDock WorkOrder loader</name>
+		<description>This plugin provides the ability to load BizDock expenses from a CSV file with various options</description>
+		<clazz>services.plugins.system.workOrderLoad.ExpensesLoaderPluginRunner</clazz>
+		<version>1.0</version>
+		<vendor-url>https://help-online.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins:workOrder-loader-plugin</vendor-url>
+		<multi-instance>true</multi-instance>
+		<event-interface in="false" out="true"/>
+		<configuration-block identifier="main" type="PROPERTIES">
+			<name>Parameters</name>
+			<description>Various configuration options for the plugin</description>
+			<version>2</version>
+			<default>
+#Default configuration (WARNING: debug mode is activated by default)
+test.mode=true
+csv.format=EXCEL
+input.file.charset=ISO8859-1
+input.file.path=/inputs/input-workOrder.csv
+automatic.load.by.scheduler=false
+load.start.time=00h00
+load.frequency.in.minutes=1440
+ignore.invalid.rows=false
+unactivate.not.found=false
+unactivate.selection.clause=
+report.mail=
+report.file.path=/outputs/report-workOrder.log
+			</default>
+		</configuration-block>
+		<configuration-block identifier="csv_mapping" type="JAVASCRIPT">
+			<name>CSV file mapping</name>
+			<description>The configuration of the mapping between the CSV file columns and the Object attributes.
+			This configuration is implemented as JavaScript.</description>
+			<version>0</version>
+			<default>
+/*
+Please change the mapping so that it reflects the structure of your CSV file.
+*/
+target.setRefId(csv.get("ref_id"));
+target.setErpRefId(csv.get("erp_ref_id"));
+target.setFirstName(csv.get("first_name"));
+target.setLastName(csv.get("last_name"));
+target.setTitle(csv.get("title"));
+target.setMail(csv.get("mail"));
+target.setMobilePhone(csv.get("mobile_phone"));
+target.setFixPhone(csv.get("fix_phone"));
+target.setEmployeId(csv.get("employee_id"));
+target.setLogin(csv.get("login"));
+target.setActorTypeRefId(csv.get("actor_type_ref_id"));
+target.setOrgUnitRefId(csv.get("org_unit_ref_id"));
+target.setActive(csv.get("is_active"));
+target.setManagerRefId(csv.get("manager_ref_id"));
+//If you set ignoreRecord to "true", the record is not saved into the database
+ignoreRecord=false;
+			</default>
+		</configuration-block>
+		<supported-data-type>WorkOrder</supported-data-type>
+	</plugin>
 	<plugin>
 		<identifier>schedule1</identifier>
 		<name>BizDock Scheduled script</name>
 		<description>A script to be scheduled at a configurable frequency</description>
 		<clazz>services.plugins.system.schedule1.HookScriptSchedulerPluginRunner</clazz>
 		<version>1.0</version>
-		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins:bizdock-scheduled-script</vendor-url>
+		<vendor-url>https://help-online.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins:bizdock-scheduled-script</vendor-url>
 		<multi-instance>true</multi-instance>
 		<event-interface in="false" out="false"/>
 		<configuration-block identifier="main" type="PROPERTIES">
@@ -650,7 +708,7 @@ function perform(date){
 		<description>The standard list of common widgets for BizDock</description>
 		<clazz>services.plugins.system.widgetkit1.StandardWidgetKitPlugin</clazz>
 		<version>1.0</version>
-		<vendor-url>https://help.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins</vendor-url>
+		<vendor-url>https://help-online.bizdock.io/doku.php?id=admin-guide:plugins:bizdock-internal-plugins</vendor-url>
 		<multi-instance>false</multi-instance>
 		<auto-register>true</auto-register>
 		<event-interface in="false" out="false"/>
