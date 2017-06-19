@@ -643,20 +643,13 @@ report.file.path=/outputs/report-workOrder.log
 /*
 Please change the mapping so that it reflects the structure of your CSV file.
 */
-target.setRefId(csv.get("ref_id"));
-target.setErpRefId(csv.get("erp_ref_id"));
-target.setFirstName(csv.get("first_name"));
-target.setLastName(csv.get("last_name"));
-target.setTitle(csv.get("title"));
-target.setMail(csv.get("mail"));
-target.setMobilePhone(csv.get("mobile_phone"));
-target.setFixPhone(csv.get("fix_phone"));
-target.setEmployeId(csv.get("employee_id"));
-target.setLogin(csv.get("login"));
-target.setActorTypeRefId(csv.get("actor_type_ref_id"));
-target.setOrgUnitRefId(csv.get("org_unit_ref_id"));
-target.setActive(csv.get("is_active"));
-target.setManagerRefId(csv.get("manager_ref_id"));
+target.setGovernanceId(csv.get("governanceId"));
+target.setDueDate(csv.get("dueDate"));
+target.setStartDate(csv.get("startDate"));
+target.setName(csv.get("name"));
+target.setDescription(csv.get("description"));
+target.setAmount(csv.get("amount"));
+target.setAmountReceived(csv.get("amountReceived"));
 //If you set ignoreRecord to "true", the record is not saved into the database
 ignoreRecord=false;
 			</default>
