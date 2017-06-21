@@ -137,6 +137,7 @@ public class ExpensesLoadableObject implements ILoadableObject {
      * Default constructor.
      */
     public ExpensesLoadableObject() {
+    	customAttributeValue = new HashMap<String, String>();
     }
 
     @Override
@@ -243,9 +244,7 @@ public class ExpensesLoadableObject implements ILoadableObject {
         workOrder.save();
         
         // save custom attributes values
-        Map<String, String> data = new HashMap<String, String>();
-        data.put("_custattr_CUSTOM_ATTRIBUTE_WorkOrder_0", "toto123 mon fournisseur");
-        saveCustomAttirbutesValues(data, workOrder.getClass(), workOrder.id);
+        saveCustomAttirbutesValues(customAttributeValue, workOrder.getClass(), workOrder.id);
 
         if (isNew) {
             return Pair.of(workOrder.id, workOrder.name);
