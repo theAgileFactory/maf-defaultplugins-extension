@@ -17,16 +17,7 @@
  */
 package services.plugins.system.workOrderLoad;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.inject.Inject;
-
-import org.apache.commons.lang3.tuple.Pair;
-
-import dao.pmo.ActorDao;
+import dao.finance.WorkOrderDAO;
 import framework.services.plugins.api.IPluginContext;
 import framework.services.plugins.api.IPluginMenuDescriptor;
 import framework.services.plugins.loader.toolkit.AbstractJavaScriptFileLoaderMapper;
@@ -34,6 +25,15 @@ import framework.services.plugins.loader.toolkit.IGenericFileLoaderMapper;
 import framework.services.plugins.loader.toolkit.LoadableObjectPluginRunner;
 import framework.services.script.IScriptService;
 import framework.services.system.ISysAdminUtils;
+import models.finance.WorkOrder;
+import models.pmo.PortfolioEntry;
+import org.apache.commons.lang3.tuple.Pair;
+
+import javax.inject.Inject;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * WorkOrder loader plugin.
@@ -41,6 +41,8 @@ import framework.services.system.ISysAdminUtils;
  */
 public class ExpensesLoaderPluginRunner extends LoadableObjectPluginRunner<ExpensesLoadableObject> {
     private IScriptService scriptService;
+
+
 
     /**
      * Default constructor.
@@ -67,13 +69,26 @@ public class ExpensesLoaderPluginRunner extends LoadableObjectPluginRunner<Expen
 
             @Override
             public Pair<String, List<String>> beforeSave(List<ExpensesLoadableObject> listOfValidLoadedObjects) throws IOException {
-            	 return null;
+                List<String> deletedWorkOrdersInitatives = new ArrayList<>();
+                listOfValidLoadedObjects.stream().forEach(workOrder -> {
+                    PortfolioEntry pe = workOrder.getPortfolioEntry();
+                    List<WorkOrder> workOrders = WorkOrderDAO.getWorkOrderAsList(pe.id);
+                    if (!workOrders.isEmpty()) {
+                        deletedWorkOrdersInitatives.add(pe.governanceId + " - " + pe.name);
+                        pe.workOrders.stream().forEach(WorkOrder::doDelete);
+                        pe.workOrders.clear();
+                        pe.save();
+                    }
+                });
+                return Pair.of("Initiatives work orders removed", deletedWorkOrdersInitatives);
             }
 
             @Override
             public Pair<String, List<String>> afterSave(List<ExpensesLoadableObject> listOfValidLoadedObjects) throws IOException {
             	 return null;
             }
+
+
         };
     }
 

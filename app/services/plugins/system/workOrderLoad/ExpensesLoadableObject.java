@@ -18,30 +18,8 @@
 package services.plugins.system.workOrderLoad;
 
 
-
-import java.lang.reflect.InvocationTargetException;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.xml.bind.annotation.XmlElement;
-
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.Pair;
-
 import controllers.admin.UserManager;
 import dao.finance.CurrencyDAO;
-import dao.finance.WorkOrderDAO;
-import dao.pmo.ActorDao;
-import dao.pmo.OrgUnitDao;
 import dao.pmo.PortfolioEntryDao;
 import framework.services.plugins.loader.toolkit.ILoadableObject;
 import framework.utils.Msg;
@@ -49,18 +27,22 @@ import models.finance.Currency;
 import models.finance.WorkOrder;
 import models.framework_models.common.CustomAttributeDefinition;
 import models.framework_models.common.ICustomAttributeValue;
-import models.framework_models.parent.IModelConstants;
 import models.pmo.Actor;
 import models.pmo.ActorType;
 import models.pmo.OrgUnit;
 import models.pmo.PortfolioEntry;
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import play.data.Form;
-import play.data.validation.Constraints.MaxLength;
-import play.data.validation.Constraints.MinLength;
-import play.data.validation.Constraints.Pattern;
 import play.data.validation.Constraints.Required;
-import services.plugins.system.timesheet1.TimesheetLoadableObject;
 import play.data.validation.ValidationError;
+
+import javax.xml.bind.annotation.XmlElement;
+import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.text.*;
+import java.util.*;
 
 /**
  * An object structure which is to be used to load actors data.<br/>
@@ -74,13 +56,16 @@ public class ExpensesLoadableObject implements ILoadableObject {
 	public static String CUSTOM_ATTRIBUTE_FORM_FIELD_NAME_EXTENSION = "_custattr_";
 	
     private static Form<ExpensesLoadableObject> fakeFormTemplate = Form.form(ExpensesLoadableObject.class);
-	private static final String DATE_FORMAT = "yyyy-MM-dd";
 
     private long sourceRowNumber;
 
-    
+    private String dateFormat = "yyyy-MM-dd";
+
+    private char numberGroupingSeparator = ',';
+
+    private char numberDecimalSeparator = '.';
+
     @Required(message = "Governance ID must not be null or blank")
-  //  @MaxLength(value = IModelConstants.SMALL_STRING)
     private String governanceId;
     
     @Required
@@ -92,8 +77,7 @@ public class ExpensesLoadableObject implements ILoadableObject {
     @Required(message = "name must not be null or blank")
     private String name;
     
-    @Required(message = "description must not be null or blank")
-    private String description; 
+    private String description;
     
     @Required
     private String amount;
@@ -115,11 +99,11 @@ public class ExpensesLoadableObject implements ILoadableObject {
         }
         
         if(this.dueDate !=null && !this.dueDate.equals("") && this.getDueDateAsDate()==null){
-            errors.add(new ValidationError("dueDate", "No valid due date or invalid format (must be "+DATE_FORMAT+")"));
+            errors.add(new ValidationError("dueDate", "No valid due date or invalid format (must be "+getDateFormat()+")"));
         }
         
         if(this.startDate !=null && !this.startDate.equals("") && this.getStartDateAsDate()==null){
-            errors.add(new ValidationError("startDate", "No valid start date or invalid format (must be "+DATE_FORMAT+")"));
+            errors.add(new ValidationError("startDate", "No valid start date or invalid format (must be "+getDateFormat()+")"));
         }
         
         if (this.amount != null && !this.amount.equals("") && this.getAmountAsBigDecimal() == null) {
@@ -137,7 +121,7 @@ public class ExpensesLoadableObject implements ILoadableObject {
      * Default constructor.
      */
     public ExpensesLoadableObject() {
-    	customAttributeValue = new HashMap<String, String>();
+    	customAttributeValue = new HashMap<>();
     }
 
     @Override
@@ -160,7 +144,33 @@ public class ExpensesLoadableObject implements ILoadableObject {
 
     @Override
     public Pair<Long, String> updateOrCreate() {
-        return updateOrCreateWorkOrder();
+        WorkOrder workOrder = new WorkOrder();
+
+        PortfolioEntry pe =PortfolioEntryDao.getPEByGovernanceId(this.governanceId);
+
+        workOrder.deleted = false;
+        workOrder.lastUpdate = new Timestamp(System.currentTimeMillis());
+        workOrder.name = this.getName();
+        workOrder.description = this.getDescription();
+        workOrder.amount = getAmountAsBigDecimal();
+        workOrder.amountReceived = getAmountReceivedAsBigDecimal();
+        workOrder.isOpex = false;
+        workOrder.isEngaged = true;
+        workOrder.creationDate = new Date();
+        workOrder.dueDate = this.getDueDateAsDate();
+        workOrder.startDate = this.getStartDateAsDate();
+        workOrder.currency = getCurrencyCode();
+        workOrder.currencyRate = getCurrencyRateAsBigDecimal();
+        workOrder.shared = false;
+
+        workOrder.portfolioEntry = pe;
+
+        workOrder.save();
+
+        // save custom attributes values
+        saveCustomAttirbutesValues(customAttributeValue, workOrder.getClass(), workOrder.id);
+
+        return Pair.of(workOrder.id, workOrder.name);
     }
 
     /**
@@ -198,65 +208,6 @@ public class ExpensesLoadableObject implements ILoadableObject {
         return Pair.of(true, "");
     }
 
-    /**
-     * Update or create an actor type.<br/>
-     * If a new actor is created then the method returns the newly created Id.
-     * <br/>
-     * This method must be called after "validateAndComplete"
-     * 
-     * @return a tuple (id of Actor object, refId) or null
-     */
-    Pair<Long, String> updateOrCreateWorkOrder() {
-
-    	boolean isNew = false;
-
-      //  WorkOrder workOrder = WorkOrderDAO.getWorkOrderById( 1L /*getId()*/)   ;
-
-    	WorkOrder workOrder = new WorkOrder(); 
-    	isNew = true;
-      
-    	PortfolioEntry pe =PortfolioEntryDao.getPEByGovernanceId(this.governanceId);
-      /*  currency.setCode("CHF"); 
-        currency.setConversionRate(new BigDecimal(1));*/
-        
-    	workOrder.deleted = false;
-    	workOrder.lastUpdate = new Timestamp(System.currentTimeMillis());
-    	workOrder.name = this.getName();
-    	workOrder.description = this.getDescription();
-    	workOrder.amount = getAmountAsBigDecimal();
-    	workOrder.amountReceived = getAmountReceivedAsBigDecimal();
-    	workOrder.isOpex = false;
-    	workOrder.setIsEngaged(true);
-    	workOrder.setCreationDate( new Date() );
-    	workOrder.dueDate = this.getDueDateAsDate();
-    	workOrder.startDate = this.getStartDateAsDate();      
-    	workOrder.currency = getCurrencyCode();
-        workOrder.currencyRate = getCurrencyRateAsBigDecimal();
-        workOrder.shared = false;
-
-      //  workOrder.setCurrencyRate(new BigDecimal("1"));;
-      //  workOrder.setCurrency(currency);   
-       
-        workOrder.setPortfolioEntry(pe);
-        
-        
-        
-        workOrder.save();
-        
-        // save custom attributes values
-        saveCustomAttirbutesValues(customAttributeValue, workOrder.getClass(), workOrder.id);
-
-        if (isNew) {
-            return Pair.of(workOrder.id, workOrder.name);
-        }
-
-        return null;
-    }
-
-    /**
-     * 
-     */
-    
     public boolean saveCustomAttirbutesValues(Map<String, String> data, Class<?> clazz,  Long objectId) {
        
     	boolean hasErrors = false;
@@ -268,8 +219,7 @@ public class ExpensesLoadableObject implements ILoadableObject {
                 for (ICustomAttributeValue customAttributeValue : customAttributeValues) {
 
                     String fieldName = CUSTOM_ATTRIBUTE_FORM_FIELD_NAME_EXTENSION + customAttributeValue.getDefinition().uuid;
-                    System.out.println(fieldName);
-                    
+
                     String value = data.get(fieldName);
                     if (value !=null && !value.isEmpty())
                     {
@@ -291,32 +241,20 @@ public class ExpensesLoadableObject implements ILoadableObject {
         return hasErrors;
     }
     
-    /**
-     * 
-     */
     public void setGovernanceId(String governanceId) {
         this.governanceId = governanceId;
     }
         
-    /**
-     * 
-     */
     @XmlElement
     public String getGovernanceId() {
         return governanceId;
     }
 
     
-    /**
-     * 
-     */
     public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
     }
     
-    /**
-     * 
-     */
     @XmlElement
     public String getDueDate() {
         return dueDate;
@@ -324,23 +262,17 @@ public class ExpensesLoadableObject implements ILoadableObject {
    
     public Date getDueDateAsDate() {
         try {
-            DateFormat format = new SimpleDateFormat(DATE_FORMAT);
+            DateFormat format = new SimpleDateFormat(getDateFormat());
             return format.parse(this.dueDate);
         } catch (ParseException e) {
             return null;
         }
     }
     
-    /**
-     * 
-     */
     public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
     
-    /**
-     * 
-     */
     @XmlElement
     public String getStartDate() {
         return startDate;
@@ -348,46 +280,31 @@ public class ExpensesLoadableObject implements ILoadableObject {
    
     public Date getStartDateAsDate() {
         try {
-            DateFormat format = new SimpleDateFormat(DATE_FORMAT);
+            DateFormat format = new SimpleDateFormat(getDateFormat());
             return format.parse(this.startDate);
         } catch (ParseException e) {
             return null;
         }
     }
     
-    /**
-     * 
-     */
     @XmlElement
     public String getName() {
         return name;
     }
 
-    /**
-	 *
-     */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * 
-     */
     @XmlElement
     public String getDescription() {
         return description;
     }
 
-    /**
-     * 
-     */
     public void setDescription(String description) {
         this.description = description;
     }
     
-    /**
-     * 
-     */
     @XmlElement
     public String getAmount() {
         return amount;
@@ -395,7 +312,7 @@ public class ExpensesLoadableObject implements ILoadableObject {
     
     public BigDecimal getAmountAsBigDecimal() {
         try {
-            return new BigDecimal(amount);
+            return new BigDecimal(parseNumber(amount).doubleValue());
         } catch (Exception e) {
             return null;
         }
@@ -408,13 +325,21 @@ public class ExpensesLoadableObject implements ILoadableObject {
      */
     public BigDecimal getAmountReceivedAsBigDecimal() {
         try {
-            return new BigDecimal(amountReceived);
+            return new BigDecimal(parseNumber(amountReceived).doubleValue());
         } catch (Exception e) {
             return null;
         }
     }
-    
-    
+
+    private Number parseNumber(String stringNumber) throws ParseException {
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setGroupingSeparator(getNumberGroupingSeparator());
+        symbols.setDecimalSeparator(getNumberDecimalSeparator());
+        DecimalFormat df = new DecimalFormat("###,###.##", symbols);
+        return df.parse(stringNumber);
+    }
+
+
     /**
      * 
      */
@@ -478,4 +403,27 @@ public class ExpensesLoadableObject implements ILoadableObject {
 
     }
 
+    public String getDateFormat() {
+        return dateFormat;
+    }
+
+    public void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
+    }
+
+    public char getNumberDecimalSeparator() {
+        return numberDecimalSeparator;
+    }
+
+    public void setNumberDecimalSeparator(char numberDecimalSeparator) {
+        this.numberDecimalSeparator = numberDecimalSeparator;
+    }
+
+    public char getNumberGroupingSeparator() {
+        return numberGroupingSeparator;
+    }
+
+    public void setNumberGroupingSeparator(char numberGroupingSeparator) {
+        this.numberGroupingSeparator = numberGroupingSeparator;
+    }
 }
