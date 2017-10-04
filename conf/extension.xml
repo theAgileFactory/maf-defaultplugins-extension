@@ -1089,7 +1089,7 @@ plugin.widget_kit.initiative_kpi.form.error.unknown_pe=Initiative existiert nich
 plugin.widget_kit.initiative_kpi.form.error.unauthorized=Sie haben keine Zugriffsberechtigung für diesen KPI.
 
 	]]></i18n-messages>
-	<i18n-messages language="fr-CH"><![CDATA[
+	<i18n-messages language="fr"><![CDATA[
 #----------------------
 # plugin / redmine / portfolio entry
 #----------------------
