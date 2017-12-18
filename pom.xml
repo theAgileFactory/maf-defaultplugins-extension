@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.agifac.lib</groupId>
+	<groupId>com.sword-group.bizdock.lib</groupId>
 	<artifactId>maf-defaultplugins-extension</artifactId>
 	<version>17.0.0-SNAPSHOT</version>
 	<name>BizDock default widgets and plugins</name>
@@ -29,7 +29,12 @@
 			<name>Pierre-Yves Cloux</name>
 			<email>dev@pycloux.com</email>
 		</developer>
-	</developers> 
+		<developer>
+			<id>gpe</id>
+			<name>Guillaume Petit</name>
+			<email>guillaume.petit@sword-group.com</email>
+		</developer>
+	</developers>
 
 	<repositories>
 		<repository>
