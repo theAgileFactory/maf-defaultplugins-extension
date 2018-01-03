@@ -207,7 +207,7 @@ public class InitiativeKpiWidgetController extends WidgetController {
 
                 Expression expression = Expr.or(Expr.ilike("name", query + "%"), Expr.ilike("governanceId", query + "%"));
 
-                for (PortfolioEntry portfolioEntry : PortfolioEntryDynamicHelper.getPortfolioEntriesViewAllowedAsQuery(expression, getSecurityService())
+                for (PortfolioEntry portfolioEntry : PortfolioEntryDynamicHelper.getPortfolioEntriesViewAllowedAsQuery(getSecurityService()).add(expression)
                         .findList()) {
                     portfolioEntries.add(new DefaultSelectableValueHolder<Long>(portfolioEntry.id, portfolioEntry.getName()));
                 }

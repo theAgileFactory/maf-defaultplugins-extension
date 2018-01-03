@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.agifac.lib</groupId>
+	<groupId>com.sword-group.bizdock.lib</groupId>
 	<artifactId>maf-defaultplugins-extension</artifactId>
-	<version>16.0.4</version>
+	<version>16.1.0-SNAPSHOT</version>
 	<name>BizDock default widgets and plugins</name>
 	<description>This module contains the default widgets and plugins for BizDock</description> 
 	<packaging>play2</packaging>
@@ -29,7 +29,12 @@
 			<name>Pierre-Yves Cloux</name>
 			<email>dev@pycloux.com</email>
 		</developer>
-	</developers> 
+		<developer>
+			<id>gpe</id>
+			<name>Guillaume Petit</name>
+			<email>guillaume.petit@sword-group.com</email>
+		</developer>
+	</developers>
 
 	<repositories>
 		<repository>
@@ -38,15 +43,15 @@
 			<url>http://repo.typesafe.com/typesafe/releases/</url>
 		</repository>
 		<repository>
-            		<id>sonatype-snapshots</id>
-            		<name>sonatype-snapshots</name>
-            		<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        	</repository>
+			<id>sonatype-snapshots</id>
+			<name>sonatype-snapshots</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</repository>
 		<repository>
-            		<id>sonatype-release</id>
-            		<name>sonatype-release</name>
-            		<url>https://oss.sonatype.org/content/repositories/release</url>
-        	</repository> 
+			<id>sonatype-release</id>
+			<name>sonatype-release</name>
+			<url>https://oss.sonatype.org/content/repositories/releases</url>
+		</repository>
 	</repositories>
 
 	<properties>
@@ -54,9 +59,9 @@
 		<java.source>1.8</java.source>
 		<java.target>1.8</java.target>
 		<scala.version>2.11</scala.version>
-		<lib.app-framework.version>16.0.4</lib.app-framework.version>
-		<maf.maf-desktop-datamodel.version>16.0.4</maf.maf-desktop-datamodel.version>
-		<maf-desktop-app.version>16.0.4</maf-desktop-app.version>
+		<lib.app-framework.version>16.1.0-SNAPSHOT</lib.app-framework.version>
+		<maf.maf-desktop-datamodel.version>16.1.0-SNAPSHOT</maf.maf-desktop-datamodel.version>
+		<maf-desktop-app.version>16.1.0-SNAPSHOT</maf-desktop-app.version>
 		<!-- Plugin properties -->
 		<maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
 		<maven-resources-plugin.version>2.6</maven-resources-plugin.version>
@@ -91,17 +96,17 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.agifac.lib</groupId>
+			<groupId>com.sword-group.bizdock.lib</groupId>
 			<artifactId>app-framework</artifactId>
 			<version>${lib.app-framework.version}</version>
 		</dependency>
 		<dependency>
-            <groupId>com.agifac.maf.desktop</groupId>
+            <groupId>com.sword-group.bizdock.desktop</groupId>
             <artifactId>maf-desktop-datamodel</artifactId>
             <version>${maf.maf-desktop-datamodel.version}</version>
         </dependency>
 		<dependency>
-			<groupId>com.agifac.maf.desktop</groupId>
+			<groupId>com.sword-group.bizdock.desktop</groupId>
 			<artifactId>maf-desktop-app</artifactId>
 			<version>${maf-desktop-app.version}</version>
 			<type>jar</type>

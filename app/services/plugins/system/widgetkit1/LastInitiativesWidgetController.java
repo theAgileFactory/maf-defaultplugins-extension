@@ -41,26 +41,24 @@ public class LastInitiativesWidgetController extends WidgetController {
     @Override
     public Promise<Result> display(Long widgetId) {
         final ILinkGenerator tempLinkGenerator = this;
-        return Promise.promise(new Function0<Result>() {
-            @Override
-            public Result apply() throws Throwable {
+        return Promise.promise(() -> {
 
-                List<PortfolioEntry> portfolioEntries;
-                OrderBy<PortfolioEntry> orderBy = new OrderBy<PortfolioEntry>();
-                orderBy.desc("creationDate");
-                orderBy.desc("id");
-                try {
-                    portfolioEntries = PortfolioEntryDynamicHelper.getPortfolioEntriesViewAllowedAsQuery(orderBy, getSecurityService()).setMaxRows(5)
-                            .findList();
-                    return ok(views.html.plugins.system.widgetkit1.last_initiatives_widget.render(widgetId, DashboardWidgetColor.DANGER.getColor(),
-                            tempLinkGenerator, portfolioEntries));
+            List<PortfolioEntry> portfolioEntries;
+            OrderBy<PortfolioEntry> orderBy = new OrderBy<PortfolioEntry>();
+            orderBy.desc("creationDate");
+            orderBy.desc("id");
+            try {
+                portfolioEntries = PortfolioEntryDynamicHelper.getPortfolioEntriesViewAllowedAsQuery(getSecurityService()).setMaxRows(5)
+                        .setOrderBy(orderBy)
+                        .findList();
+                return ok(views.html.plugins.system.widgetkit1.last_initiatives_widget.render(widgetId, DashboardWidgetColor.DANGER.getColor(),
+                        tempLinkGenerator, portfolioEntries));
 
-                } catch (Exception e) {
-                    log.error("Error while displaying the last initiatives widget", e);
-                    return displayErrorWidget(widgetId);
-                }
-
+            } catch (Exception e) {
+                log.error("Error while displaying the last initiatives widget", e);
+                return displayErrorWidget(widgetId);
             }
+
         });
     }
 
