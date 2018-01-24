@@ -151,7 +151,7 @@ public class HookScriptUtils {
     	event.message=eventMessage;
     	event.save();
     }
-    
+
 
     /**
      * Send an email
@@ -162,6 +162,17 @@ public class HookScriptUtils {
      */
     public void sendMail(String subject, String body, String... to) {
         getPluginContext().sendEmail(subject, body, to);
+    }
+
+    /**
+     * Send an email
+     *
+     * @param subject
+     * @param body
+     * @param to
+     */
+    public void sendMail(String subject, String body, String[] to, String[] cc) {
+        getPluginContext().sendEmail(subject, body, to, cc);
     }
 
     /**
