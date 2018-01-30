@@ -20,6 +20,7 @@ import framework.services.custom_attribute.ICustomAttributeManagerService.Custom
 import framework.services.plugins.api.IPluginContext;
 import framework.services.plugins.api.IPluginContext.LogLevel;
 import framework.services.plugins.api.PluginException;
+import framework.utils.Msg;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import models.pmo.PortfolioEntryEvent;
 import play.Logger;
@@ -286,6 +287,10 @@ public class HookScriptUtils {
 		} catch (PluginException e) {
 			throw new HookScriptException("Error while deleting some data from the shared storage",e);
 		}
+    }
+
+    public String getMessage(String key) {
+        return Msg.get(key);
     }
 
     private void logMessage(boolean isError, String objectType, long objectId, String eventType, String message) {
