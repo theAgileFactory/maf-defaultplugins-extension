@@ -84,7 +84,7 @@ public class InitiativeKpiWidgetController extends WidgetController {
                     /**
                      * Get and verify the configuration.
                      */
-                    InitiativeKpiWidgetConfiguration configuration = new InitiativeKpiWidgetConfiguration();
+                    KpiWidgetConfiguration configuration = new KpiWidgetConfiguration();
                     try {
                         configuration.deserialize(widget.config);
                         verifyConfiguration(configuration);
@@ -123,7 +123,7 @@ public class InitiativeKpiWidgetController extends WidgetController {
                     Form<KpiSelectorFormData> form = configureFormTemplate;
                     DashboardWidget widget = DashboardWidget.find.where().eq("id", id).findUnique();
                     if (widget.config != null) {
-                        InitiativeKpiWidgetConfiguration configuration = new InitiativeKpiWidgetConfiguration();
+                        KpiWidgetConfiguration configuration = new KpiWidgetConfiguration();
                         try {
                             configuration.deserialize(widget.config);
                             verifyConfiguration(configuration);
@@ -168,7 +168,7 @@ public class InitiativeKpiWidgetController extends WidgetController {
                     }
 
                     KpiSelectorFormData kpiSelectorFormData = boundForm.get();
-                    InitiativeKpiWidgetConfiguration configuration = kpiSelectorFormData.getConfiguration();
+                    KpiWidgetConfiguration configuration = kpiSelectorFormData.getConfiguration();
 
                     try {
                         verifyConfiguration(configuration);
@@ -253,7 +253,7 @@ public class InitiativeKpiWidgetController extends WidgetController {
      * @param configuration
      *            the configuration
      */
-    private void verifyConfiguration(InitiativeKpiWidgetConfiguration configuration) throws Exception {
+    private void verifyConfiguration(KpiWidgetConfiguration configuration) throws Exception {
 
         Kpi kpi = getKpiService().getKpi(configuration.kpiUid);
 
@@ -261,13 +261,13 @@ public class InitiativeKpiWidgetController extends WidgetController {
             throw new Exception("plugin.widget_kit.initiative_kpi.form.error.unknown_kpi");
         }
 
-        PortfolioEntry portfolioEntry = PortfolioEntryDao.getPEById(configuration.portfolioEntryId);
+        PortfolioEntry portfolioEntry = PortfolioEntryDao.getPEById(configuration.objectId);
 
         if (portfolioEntry == null) {
             throw new Exception("plugin.widget_kit.initiative_kpi.form.error.unknown_pe");
         }
 
-        if (!getSecurityService().dynamic(IMafConstants.PORTFOLIO_ENTRY_DETAILS_DYNAMIC_PERMISSION, "", configuration.portfolioEntryId)) {
+        if (!getSecurityService().dynamic(IMafConstants.PORTFOLIO_ENTRY_DETAILS_DYNAMIC_PERMISSION, "", configuration.objectId)) {
             throw new Exception("plugin.widget_kit.initiative_kpi.form.error.unauthorized");
         }
 
@@ -289,7 +289,7 @@ public class InitiativeKpiWidgetController extends WidgetController {
         public String kpiUid;
 
         @Required
-        public Long portfolioEntryId;
+        public Long objectId;
 
         /**
          * Default constructor.
@@ -303,18 +303,18 @@ public class InitiativeKpiWidgetController extends WidgetController {
          * @param configuration
          *            the configuration
          */
-        public KpiSelectorFormData(InitiativeKpiWidgetConfiguration configuration) {
+        public KpiSelectorFormData(KpiWidgetConfiguration configuration) {
             this.kpiUid = configuration.kpiUid;
-            this.portfolioEntryId = configuration.portfolioEntryId;
+            this.objectId = configuration.objectId;
         }
 
         /**
          * Get the configuration according to the form value.
          */
-        public InitiativeKpiWidgetConfiguration getConfiguration() {
-            InitiativeKpiWidgetConfiguration configuration = new InitiativeKpiWidgetConfiguration();
+        public KpiWidgetConfiguration getConfiguration() {
+            KpiWidgetConfiguration configuration = new KpiWidgetConfiguration();
             configuration.kpiUid = this.kpiUid;
-            configuration.portfolioEntryId = this.portfolioEntryId;
+            configuration.objectId = this.objectId;
             return configuration;
         }
 

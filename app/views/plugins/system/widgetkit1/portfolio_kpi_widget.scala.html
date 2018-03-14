@@ -10,17 +10,17 @@
 @import framework_views.parts
 
 @containerId=@{
-    "initiative-kpi-widget-" + id
+    "portfolio-kpi-widget-" + id
 }
 
-@views.html.framework_views.dashboard.widget(id, parts.Msg.asString("plugin.widget_kit.initiative_kpi.title"), color){
+@views.html.framework_views.dashboard.widget(id, parts.Msg.asString("plugin.widget_kit.portfolio_kpi.title"), color){
 
     <div id ="@containerId">
         @if(configuration != null) {
-            @initiative_kpi_display_fragment_widget(id, configuration)
+            @portfolio_kpi_display_fragment_widget(id, configuration)
         } else {
             <script>
-                var jqxhr = $.get('@linkgen.link("kpi-configure",id)', function(data) {
+                var jqxhr = $.get('@linkgen.link("kpi-portfolio-configure",id)', function(data) {
                     $('#@(containerId)').html(data);
                 }).fail(function() {
                     alert("Error");
@@ -32,7 +32,7 @@
     <script type="text/javascript">
         bizdock_widget_addEventListener(@id, function(event){
             if(event.nature=="EDIT"){
-                var jqxhr = $.get('@linkgen.link("kpi-configure",id)', function(data) {
+                var jqxhr = $.get('@linkgen.link("kpi-portfolio-configure",id)', function(data) {
                     $('#@(containerId)').html(data);
                 }).fail(function() {
                     alert("Error");

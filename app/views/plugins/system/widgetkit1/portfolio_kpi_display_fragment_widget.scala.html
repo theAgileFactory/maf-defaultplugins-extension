@@ -7,13 +7,13 @@
 @import commons._
 @import framework_views.parts
 
-@portfolioEntry=@{
-    dao.pmo.PortfolioEntryDao.getPEById(configuration.objectId)
+@portfolio=@{
+    dao.pmo.PortfolioDao.getPortfolioById(configuration.objectId)
 }
 
 @views.html.framework_views.parts.kpi.display_kpi_box(configuration.kpiUid, configuration.objectId)
 
 <script>
-    $("#initiative-kpi-widget-@(id)").children("div").first().removeClass("col-lg-3").removeClass("col-sm-4").css({"max-width": "350px"});
-    bizdock_widget_changeTitle(@id, "@(portfolioEntry.getName)");
+    $("#portfolio-kpi-widget-@(id)").children("div").first().removeClass("col-lg-3").removeClass("col-sm-4").css({"max-width": "350px"});
+    bizdock_widget_changeTitle(@id, "@(portfolio.getName)");
 </script>

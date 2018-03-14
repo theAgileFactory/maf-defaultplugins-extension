@@ -12,14 +12,14 @@ import java.io.Serializable;
  * 
  * @author Johann Kohler
  */
-public class InitiativeKpiWidgetConfiguration implements Serializable {
+public class KpiWidgetConfiguration implements Serializable {
 
     private static final long serialVersionUID = -5605992593738668866L;
 
     public String kpiUid;
-    public Long portfolioEntryId;
+    public Long objectId;
 
-    public InitiativeKpiWidgetConfiguration() {
+    public KpiWidgetConfiguration() {
 
     }
 
@@ -42,8 +42,8 @@ public class InitiativeKpiWidgetConfiguration implements Serializable {
     public void deserialize(byte[] data) throws IOException, ClassNotFoundException {
         ByteArrayInputStream in = new ByteArrayInputStream(data);
         ObjectInputStream is = new ObjectInputStream(in);
-        InitiativeKpiWidgetConfiguration configuration = (InitiativeKpiWidgetConfiguration) is.readObject();
+        KpiWidgetConfiguration configuration = (KpiWidgetConfiguration) is.readObject();
         this.kpiUid = configuration.kpiUid;
-        this.portfolioEntryId = configuration.portfolioEntryId;
+        this.objectId = configuration.objectId;
     }
 }

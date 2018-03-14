@@ -796,6 +796,13 @@ function perform(date){
             <class>services.plugins.system.widgetkit1.LatePlannedMilestonesController</class>
             <hasEditMode>false</hasEditMode>
         </widget>
+		<widget>
+			<identifier>WG13</identifier>
+			<name>plugin.widget_kit.portfolio_kpi.title</name>
+			<description>plugin.widget_kit.portfolio_kpi.description</description>
+			<class>services.plugins.system.widgetkit1.PortfolioKpiWidgetController</class>
+			<hasEditMode>true</hasEditMode>
+		</widget>
 	</plugin>
 	<i18n-messages language="en"><![CDATA[
 #----------------------
@@ -941,6 +948,13 @@ plugin.widget_kit.initiative_kpi.form.portfolio_entry_id=Initiative
 plugin.widget_kit.initiative_kpi.form.error.unknown_kpi=The KPI doesn't exist or is not active.
 plugin.widget_kit.initiative_kpi.form.error.unknown_pe=The initiative doesn't exist.
 plugin.widget_kit.initiative_kpi.form.error.unauthorized=You are not authorized to display this KPI for the selected initiative.
+plugin.widget_kit.portfolio_kpi.title=Portfolio's KPI
+plugin.widget_kit.portfolio_kpi.description=Displays a specific KPI for a selected portfolio.
+plugin.widget_kit.portfolio_kpi.form.kpi_uid=KPI
+plugin.widget_kit.portfolio_kpi.form.portfolio_id=Portfolio
+plugin.widget_kit.portfolio_kpi.form.error.unknown_kpi=The KPI doesn't exist or is not active.
+plugin.widget_kit.portfolio_kpi.form.error.unknown_portfolio=The portfolio doesn't exist.
+plugin.widget_kit.portfolio_kpi.form.error.unauthorized=You are not authorized to display this KPI for the selected portfolio.
 
 	]]></i18n-messages>
 	<i18n-messages language="de"><![CDATA[
@@ -1087,6 +1101,13 @@ plugin.widget_kit.initiative_kpi.form.portfolio_entry_id=Initiative
 plugin.widget_kit.initiative_kpi.form.error.unknown_kpi=KPI existiert nicht oder ist nicht mehr aktiv.
 plugin.widget_kit.initiative_kpi.form.error.unknown_pe=Initiative existiert nicht mehr.
 plugin.widget_kit.initiative_kpi.form.error.unauthorized=Sie haben keine Zugriffsberechtigung für diesen KPI.
+plugin.widget_kit.portfolio_kpi.title=KPI einer Portfolio
+plugin.widget_kit.portfolio_kpi.description=Anzeige eines KPI einer Portfolio.
+plugin.widget_kit.portfolio_kpi.form.kpi_uid=KPI
+plugin.widget_kit.portfolio_kpi.form.portfolio_id=Portfolio
+plugin.widget_kit.portfolio_kpi.form.error.unknown_kpi=KPI existiert nicht oder ist nicht mehr aktiv.
+plugin.widget_kit.portfolio_kpi.form.error.unknown_portfolio=Portfolio existiert nicht mehr.
+plugin.widget_kit.portfolio_kpi.form.error.unauthorized=Sie haben keine Zugriffsberechtigung für diesen KPI.
 
 	]]></i18n-messages>
 	<i18n-messages language="fr"><![CDATA[
@@ -1231,6 +1252,13 @@ plugin.widget_kit.initiative_kpi.form.portfolio_entry_id=Initiative
 plugin.widget_kit.initiative_kpi.form.error.unknown_kpi=Ce KPI n'existe pas ou n'est pas actif.
 plugin.widget_kit.initiative_kpi.form.error.unknown_pe=Cette initiative n'existe pas.
 plugin.widget_kit.initiative_kpi.form.error.unauthorized=Vous n'êtes pas autorisé à afficher ce KPI pour l'initiative choisie.
+plugin.widget_kit.portfolio_kpi.title=KPI de portfolio
+plugin.widget_kit.portfolio_kpi.description=Affiche un KPI spécifique pour un portfolio choisi.
+plugin.widget_kit.portfolio_kpi.form.kpi_uid=KPI
+plugin.widget_kit.portfolio_kpi.form.portfolio_id=Portfolio
+plugin.widget_kit.portfolio_kpi.form.error.unknown_kpi=Ce KPI n'existe pas ou n'est pas actif.
+plugin.widget_kit.portfolio_kpi.form.error.unknown_portfolio=Ce portfolio n'existe pas.
+plugin.widget_kit.portfolio_kpi.form.error.unauthorized=Vous n'êtes pas autorisé à afficher ce KPI pour le portfolio choisi.
 
 	]]></i18n-messages>
 </extension-descriptor>

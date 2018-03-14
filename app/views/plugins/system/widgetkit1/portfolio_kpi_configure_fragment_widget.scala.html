@@ -1,17 +1,14 @@
 @(
     id: Long, 
     linkgen: framework.services.ext.api.ILinkGenerator,
-    configureForm: Form[services.plugins.system.widgetkit1.InitiativeKpiWidgetController.KpiSelectorFormData],
+    configureForm: Form[services.plugins.system.widgetkit1.PortfolioKpiWidgetController.KpiSelectorFormData],
     selectableKpis: framework.utils.ISelectableValueHolderCollection[String]
 )
 
-@import commons._
 @import framework_views.parts
-@import helper._
-@import bootstrap3._
 
 @containerId=@{
-    "initiative-kpi-widget-" + id
+    "portfolio-kpi-widget-" + id
 }
 
 <div class="widget-edit-mode maf-form">
@@ -21,28 +18,28 @@
         </div>
     }
      
-    <form action='@linkgen.link("kpi-process-configure",id)' method="POST" id="initiative-kpi-configure-form-@(id)">
+    <form action='@linkgen.link("kpi-portfolio-process-configure",id)' method="POST" id="portfolio-kpi-configure-form-@(id)">
 
         <fieldset>
         
-            @parts.dropdownlist(configureForm("kpiUid"), parts.Msg.asString("plugin.widget_kit.initiative_kpi.form.kpi_uid"), selectableKpis)
+            @parts.dropdownlist(configureForm("kpiUid"), parts.Msg.asString("plugin.widget_kit.portfolio_kpi.form.kpi_uid"), selectableKpis)
 
             @parts.autocomplete(
                 configureForm("objectId"),
-                parts.Msg.asString("plugin.widget_kit.initiative_kpi.form.portfolio_entry_id"),
+                parts.Msg.asString("plugin.widget_kit.portfolio_kpi.form.portfolio_id"),
                 "",
-                linkgen.link("kpi-search-portfolio-entry")
+                linkgen.link("kpi-search-portfolio")
             )
             
             <input class="btn btn-primary" type="submit" value="@parts.Msg("button.save")" />
-            <a id="initiative-kpi-configure-cancel-@(id)" class="btn btn-default" href="#">@parts.Msg("button.cancel")</a>
+            <a id="portfolio-kpi-configure-cancel-@(id)" class="btn btn-default" href="#">@parts.Msg("button.cancel")</a>
             
         </fieldset>
 
     </form>
     
     <script>
-        $( "#initiative-kpi-configure-form-@(id)").submit(function( event ) {
+        $( "#portfolio-kpi-configure-form-@(id)").submit(function( event ) {
             event.preventDefault();
             var $form = $(this),
             url = $form.attr( "action" );
@@ -50,7 +47,7 @@
                 $("#@(containerId)").html(data);
             });
         });
-        $( "#initiative-kpi-configure-cancel-@(id)").click(function( event ) {
+        $( "#portfolio-kpi-configure-cancel-@(id)").click(function( event ) {
             event.preventDefault();
             $("#maf_widget_widget_id_@(id)").find("._maf_widget_widget_command_display").click();
         });
