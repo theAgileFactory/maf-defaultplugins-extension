@@ -2,6 +2,8 @@ package services.plugins.system.widgetkit1;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -141,8 +143,13 @@ public class MyInitiativesWidgetController extends WidgetController {
             portfolioEntryListView.add(new PortfolioEntryListView(portfolioEntry));
         }
 
+        List<Object> configurationList = getConfiguration().getList("table.view.portfolioentry.columns.hide");
+        Set<String> hideNonDefaultColumns = configurationList != null ?
+                configurationList.stream().map(Object::toString).collect(Collectors.toSet()) :
+                PortfolioEntryListView.getHideNonDefaultColumns(true, true);
+
         Table<PortfolioEntryListView> asManagerTable = this.getTableProvider().get().portfolioEntry.templateTable.fill(portfolioEntryListView,
-                PortfolioEntryListView.getHideNonDefaultColumns(true, true));
+                hideNonDefaultColumns);
 
         /**
          * get the portfolio entries for which the current actor is a
@@ -163,7 +170,7 @@ public class MyInitiativesWidgetController extends WidgetController {
         }
 
         Table<PortfolioEntryListView> asStakeholderTable = this.getTableProvider().get().portfolioEntry.templateTable.fill(portfolioEntryListView,
-                PortfolioEntryListView.getHideNonDefaultColumns(false, true));
+                hideNonDefaultColumns);
 
         return new MyInitiativesData(asManagerTable, asManagerPagination, asStakeholderTable, asStakeholderPagination);
 
